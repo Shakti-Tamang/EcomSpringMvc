@@ -5,12 +5,14 @@
 <%--This allows EL expressions like ${} to be evaluated and processed, enabling you to--%>
 <%--include dynamic content within your JSP pages.--%>
 <%@ page isELIgnored="false" %>
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Sign Up - E-Commerce</title>
+    <title>Log In - E-Commerce</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <style>
+        /* Existing CSS */
         * {
             box-sizing: border-box;
             margin: 0;
@@ -32,7 +34,7 @@
             border-radius: 8px;
             box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
             padding: 40px;
-            width: 500px; /* Increased width */
+            width: 500px;
             transition: width 0.3s;
         }
 
@@ -41,12 +43,6 @@
             margin-bottom: 20px;
             color: #333;
             font-weight: 700;
-        }
-
-        .message {
-            color: red;
-            text-align: center;
-            margin-bottom: 20px;
         }
 
         .input-group {
@@ -60,8 +56,7 @@
             font-weight: 500;
         }
 
-        .input-group input,
-        .input-group select {
+        .input-group input {
             width: 100%;
             padding: 12px;
             border: 1px solid #ddd;
@@ -69,11 +64,16 @@
             transition: border-color 0.3s, box-shadow 0.3s;
         }
 
-        .input-group input:focus,
-        .input-group select:focus {
+        .input-group input:focus {
             border-color: #007BFF;
             box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
             outline: none;
+        }
+
+        .message {
+            color: red;
+            text-align: center;
+            margin-bottom: 15px;
         }
 
         button {
@@ -134,8 +134,7 @@
                 font-size: 22px;
             }
 
-            .input-group input,
-            .input-group select {
+            .input-group input {
                 padding: 10px;
             }
 
@@ -148,15 +147,11 @@
 </head>
 <body>
 <div class="container">
-    <h1>Create Your Account</h1>
-    <form action="save" method="POST">
-        <c:if test="${not empty message}">
-            <div class="message">${message}</div>
-        </c:if>
-        <div class="input-group">
-            <label for="username">Username</label>
-            <input type="text" id="username" name="username" required>
-        </div>
+    <h1>Log In to Your Account</h1>
+    <c:if test="${not empty message}">
+        <div class="message">${message}</div>
+    </c:if>
+    <form action="LoggedInuser" method="POST">
         <div class="input-group">
             <label for="email">Email</label>
             <input type="email" id="email" name="email" required>
@@ -165,19 +160,8 @@
             <label for="password">Password</label>
             <input type="password" id="password" name="password" required>
         </div>
-        <div class="input-group">
-            <label for="confirmPassword">Confirm Password</label>
-            <input type="password" id="confirmPassword" name="confirmPassword" required>
-        </div>
-        <div class="input-group">
-            <label for="role">Role</label>
-            <select id="role" name="role" required>
-                <option value="USER">User</option>
-                <option value="ADMIN">Admin</option>
-            </select>
-        </div>
-        <button type="submit">Sign Up</button>
-        <p class="redirect">Already have an account? <a href="logIn">Login here</a>.</p>
+        <button type="submit">Log In</button>
+        <p class="redirect">Don't have an account? <a href="signUp">Sign up here</a>.</p>
     </form>
 </div>
 </body>
