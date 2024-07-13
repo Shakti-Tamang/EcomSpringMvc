@@ -64,8 +64,8 @@ public class CustomerController {
 
         }
         else{
-            modelAndView=new ModelAndView("customerDashBoard");
-            modelAndView.addObject("user",user);
+            modelAndView = new ModelAndView("customerDashBoard");
+            modelAndView.addObject("user", user);
 
         }
   return modelAndView;
