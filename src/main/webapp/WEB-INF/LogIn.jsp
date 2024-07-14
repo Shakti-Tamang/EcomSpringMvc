@@ -161,7 +161,7 @@
             <input type="password" id="password" name="password" required>
         </div>
         <button type="submit">Log In</button>
-        <p class="redirect">Don't have an account? <a href="signUp">Sign up here</a>.</p>
+        <p class="redirect">Don't have an account? <a href="signup">Sign up here</a>.</p>
     </form>
 </div>
 </body>

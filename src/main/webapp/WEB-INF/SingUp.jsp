@@ -149,7 +149,7 @@
 <body>
 <div class="container">
     <h1>Create Your Account</h1>
-    <form action="save" method="POST">
+    <form action="save" method="POST" onsubmit="return validForm()">
         <c:if test="${not empty message}">
             <div class="message">${message}</div>
         </c:if>
@@ -166,8 +166,8 @@
             <input type="password" id="password" name="password" required>
         </div>
         <div class="input-group">
-            <label for="confirmPassword">Confirm Password</label>
-            <input type="password" id="confirmPassword" name="confirmPassword" required>
+            <label for="confirm_password">Confirm Password</label>
+            <input type="password" id="confirm_password" name="confirmPassword" required>
         </div>
         <div class="input-group">
             <label for="role">Role</label>
@@ -180,5 +180,46 @@
         <p class="redirect">Already have an account? <a href="logIn">Login here</a>.</p>
     </form>
 </div>
+<script>
+    function validForm() {
+        var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        var passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
+
+        var name = document.getElementById("username").value;
+        var email = document.getElementById("email").value;
+        var password = document.getElementById("password").value;
+        var confirmPassword = document.getElementById("confirm_password").value;
+
+        var isValid = true;
+        var errorMessage = "";
+
+        if (name.trim() === "") {
+            errorMessage += "Name cannot be empty.\n";
+            isValid = false;
+        }
+
+        if (!emailRegex.test(email)) {
+            errorMessage += "Invalid email format.\n";
+            isValid = false;
+        }
+
+        if (!passwordRegex.test(password)) {
+            errorMessage += "Password must contain at least 8 characters, including one uppercase letter, one lowercase letter, and one number.\n";
+            isValid = false;
+        }
+
+        if (password !== confirmPassword) {
+            errorMessage += "Passwords do not match.\n";
+            isValid = false;
+        }
+
+        if (!isValid) {
+            alert(errorMessage);
+            return false;
+        }
+
+        return true;
+    }
+</script>
 </body>
 </html>

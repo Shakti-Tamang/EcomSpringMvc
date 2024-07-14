@@ -1,9 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-
-<%--Expression Language (EL) expressions will not be ignored by the JSP container.--%>
-<%--This allows EL expressions like ${} to be evaluated and processed, enabling you to--%>
-<%--include dynamic content within your JSP pages.--%>
 <%@ page isELIgnored="false" %>
 
 <html lang="en">
@@ -11,6 +7,7 @@
     <meta charset="UTF-8">
     <title>Dashboard - E-Commerce</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         * {
             box-sizing: border-box;
@@ -27,13 +24,15 @@
 
         .sidebar {
             width: 250px;
-            background-color: #4267B2;
-            color: #fff;
+            background-color: #fff;
+            color: #000;
             flex-shrink: 0;
             display: flex;
             flex-direction: column;
             padding-top: 20px;
             transition: width 0.3s;
+            box-shadow: inset -5px -5px 10px rgba(0, 0, 0, 0.1), inset 5px 5px 10px rgba(255, 255, 255, 0.7);
+            border-right: 1px solid #d3d3d3;
         }
 
         .sidebar h2 {
@@ -41,6 +40,7 @@
             margin-bottom: 20px;
             font-weight: 700;
             font-size: 22px;
+            color: #1877F2;
         }
 
         .sidebar ul {
@@ -51,37 +51,56 @@
         .sidebar ul li {
             padding: 15px 20px;
             transition: background-color 0.3s;
+            display: flex;
+            align-items: center;
         }
 
         .sidebar ul li:hover {
-            background-color: #365899;
+            background-color: #f0f2f5;
         }
 
         .sidebar ul li a {
-            color: #fff;
+            color: #1877F2;
             text-decoration: none;
             display: block;
+            flex-grow: 1;
+            text-transform: uppercase;
+            font-weight: bold;
         }
 
         .main-content {
             flex-grow: 1;
-            padding: 20px;
+            padding: 0;
             background-color: #fff;
+            display: flex;
+            flex-direction: column;
         }
 
         .header {
-            background-color: #4267B2;
-            color: #fff;
+            background-color: #fff;
+            color: #000;
             padding: 15px 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            border-bottom: 1px solid #d3d3d3;
         }
 
         .header .title {
             font-size: 24px;
             font-weight: 700;
+            color: #1877F2;
+            display: flex;
+            align-items: center;
+        }
+
+        .header .title i {
+            margin-right: 10px;
+            color: #1877F2;
         }
 
         .header .user-info {
@@ -98,10 +117,15 @@
 
         .header .user-info span {
             font-size: 16px;
+            color: #1877F2;
+            text-transform: uppercase;
+            font-weight: bold;
         }
 
         .content {
             margin-top: 20px;
+            flex-grow: 1;
+            padding: 20px;
         }
 
         .card {
@@ -110,6 +134,7 @@
             box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
             padding: 20px;
             margin-bottom: 20px;
+            border: 1px solid #d3d3d3;
         }
 
         .card h3 {
@@ -171,41 +196,34 @@
         }
     </style>
 </head>
+
 <body>
 <div class="sidebar">
-    <h2>Dashboard</h2>
+    <h2 style="margin-right:100px;text-transform: uppercase;text-decoration: none; font-weight: bold;margin-top: 25px">Dashboard</h2>
     <ul>
-        <li><a href="#">Home</a></li>
-        <li><a href="#">Products</a></li>
-        <li><a href="#">Orders</a></li>
-        <li><a href="#">Customers</a></li>
-        <li><a href="#">Reports</a></li>
-        <li><a href="#">Settings</a></li>
+        <li><a href="#" style="text-transform: uppercase;text-decoration: none; font-weight: bold;">Home</a></li>
+        <li><a href="#" style="text-transform: uppercase;text-decoration: none; font-weight: bold;">Products</a></li>
+        <li><a href="#" style="text-transform: uppercase;text-decoration: none; font-weight: bold;">Orders</a></li>
+        <li><a href="#" style="text-transform: uppercase;text-decoration: none; font-weight: bold;">Customers</a></li>
+        <li><a href="#" style="text-transform: uppercase;text-decoration: none; font-weight: bold;">Reports</a></li>
+        <li><a href="#" style="text-transform: uppercase;text-decoration: none; font-weight: bold;">Settings</a></li>
     </ul>
 </div>
 <div class="main-content">
     <div class="header">
-        <div class="title">Welcome to E-Commerce Dashboard</div>
         <div class="user-info">
-            <img src="https://via.placeholder.com/40" alt="User Avatar">
+            <i style="color: blue;width: 18px;height: 20px;" class="fas fa-user"></i>
             <c:if test="${not empty user}">
-                <span>${user}</span>
+                <span style="color:blue;text-transform: uppercase;text-decoration: none; font-weight: bold;font-size: 18px;">${user}</span>
             </c:if>
         </div>
+        <div class="title" style="text-transform: uppercase;color:blue;text-decoration: none; font-weight: bold;margin-left: 44px">Welcome to Shakti-Commerce</div>
+        <a href="logIn" style="color:blue;text-transform: uppercase;text-decoration: none; font-weight: bold;">
+            <i class="fas fa-sign-out-alt"></i> Logout
+        </a>
     </div>
     <div class="content">
-        <div class="card">
-            <h3>Sales Overview</h3>
-            <p>Here you can see the overall sales performance and trends for your e-commerce site.</p>
-        </div>
-        <div class="card">
-            <h3>Product Management</h3>
-            <p>Manage your products, add new ones, update details, and track inventory.</p>
-        </div>
-        <div class="card">
-            <h3>Order Tracking</h3>
-            <p>View and manage customer orders, track shipping, and handle returns.</p>
-        </div>
+        <!-- Your other content goes here -->
     </div>
 </div>
 </body>
