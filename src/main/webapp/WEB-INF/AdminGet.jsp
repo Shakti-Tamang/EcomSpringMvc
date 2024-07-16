@@ -1,256 +1,211 @@
+<%--
+  Created by IntelliJ IDEA.
+  User: Shakti
+  Date: 4/28/2024
+  Time: 3:30 PM
+  To change this template use File | Settings | File Templates.
+--%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page isELIgnored="false" %>
 
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>Admin DashBoard Commerce</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <title>Title</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <style>
-        * {
-            box-sizing: border-box;
+        /* General body styling */
+        body {
+
+            font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            font-family: 'Roboto', sans-serif;
+            background-color: #f4f4f4; /* Light grey background for the main area */
         }
 
-        body {
-            display: flex;
-            min-height: 100vh;
-            background-color: #f0f2f5;
+        /* Styling for the sidebar */
+        #sidebar {
+            background-color: #FFFFFF; /* White background */
+            color: #808080; /* Gray text color */
+            width: 250px; /* Sidebar width */
+            height: 100vh; /* Full height of the viewport */
+            position: fixed; /* Fixed position to stay visible while scrolling */
+            left: 0;
+            top: 0;
+            padding: 20px;
+            box-shadow: 2px 0 5px rgba(0,0,0,0.1); /* Subtle shadow to the right of the sidebar */
         }
 
-        .sidebar {
-            width: 250px;
-            background-color: #fff;
-            color: #000;
-            flex-shrink: 0;
-            display: flex;
-            flex-direction: column;
-            padding-top: 20px;
-            transition: width 0.3s;
-            box-shadow: inset -5px -5px 10px rgba(0, 0, 0, 0.1), inset 5px 5px 10px rgba(255, 255, 255, 0.7);
-            border-right: 1px solid #d3d3d3;
-        }
-
-        .sidebar h2 {
-            text-align: center;
-            margin-bottom: 20px;
-            font-weight: 700;
-            font-size: 22px;
-            color: #1877F2;
-        }
-
-        .sidebar ul {
+        /* Navigation list styling */
+        #sidebar-nav ul {
             list-style: none;
             padding: 0;
         }
 
-        .sidebar ul li {
-            padding: 15px 20px;
-            transition: background-color 0.3s;
+        #sidebar-nav ul li {
+            padding: 10px 0;
+        }
+
+        #sidebar-nav ul li a {
+            color: #808080; /* Gray text color */
+            text-decoration: none; /* Removes underline from links */
+            display: block; /* Makes the links fill the available space */
+            transition: color 0.3s, background-color 0.3s; /* Smooth transition for color and background */
+        }
+
+        #sidebar-nav ul li a i {
+            margin-right: 10px; /* Space between icon and text */
+        }
+
+        #sidebar-nav ul li a:hover {
+            background-color: #e9ecef; /* Light gray background for hover state */
+            color:rgb(100,220,164); /* Green color text for hover */
+        }
+
+        /* Header styling */
+        #header {
+            padding: 10px; /* Decrease padding */
+            background-color: #FFFFFF;
+            color: #808080;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
             display: flex;
             align-items: center;
-        }
-
-        .sidebar ul li:hover {
-            background-color: #f0f2f5;
-        }
-
-        .sidebar ul li a {
-            color: #1877F2;
-            text-decoration: none;
-            display: block;
-            flex-grow: 1;
-            text-transform: uppercase;
-            font-weight: bold;
-        }
-
-        .main-content {
-            flex-grow: 1;
-            padding: 0;
-            background-color: #fff;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .header {
-            background-color: #fff;
-            color: #000;
-            padding: 15px 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: sticky;
+            position: fixed;
+            width: calc(100% - 250px);
+            left: 250px;
             top: 0;
             z-index: 1000;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            border-bottom: 1px solid #d3d3d3;
+            height: 60px;
         }
 
-        .header .title {
-            font-size: 24px;
-            font-weight: 700;
-            color: #1877F2;
-            display: flex;
-            align-items: center;
+        /* Navigation icons styling */
+        .header-nav ul li {
+            display: inline-block;
+            margin-right: 10px; /* Decrease margin between icons */
         }
 
-        .header .title i {
-            margin-right: 10px;
-            color: #1877F2;
+        .header-nav ul li:last-child {
+            margin-right: 0;
         }
 
-        .header .user-info {
-            display: flex;
-            align-items: center;
+        .header-nav ul li a {
+            color: #808080;
+            text-decoration: none;
+            font-size: 14px; /* Decrease font size */
         }
 
-        .header .user-info img {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            margin-right: 10px;
+        /* Logout button styling */
+        .logout {
+            margin-left: 490px; /* Move logout button to the right */
+            border: 0px solid gray; /* Correct border syntax */
+            color: gray;
+            height: 35px;
+            width: 75px;
+            transition: color 0.3s;
+            font-size: 16px; /* Decrease font size */
+            padding: 5px 10px; /* Decrease padding */
         }
 
-        .header .user-info span {
-            font-size: 16px;
-            color: #1877F2;
-            text-transform: uppercase;
-            font-weight: bold;
+        .logout:hover {
+            color:rgb(100,220,164);
         }
 
-        .content {
-            margin-top: 20px;
-            flex-grow: 1;
+        /* Content area styling */
+        #content {
+            margin-left: 250px; /* Same as sidebar width */
             padding: 20px;
+            margin-top: 70px; /* Adjusting content margin to avoid overlap with fixed header */
         }
 
-        .card {
-            background-color: #fff;
-            border-radius: 8px;
-            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
-            padding: 20px;
-            margin-bottom: 20px;
-            border: 1px solid #d3d3d3;
+        .content-header h1 {
+            margin-top: 0;
         }
 
-        .card h3 {
-            margin-bottom: 15px;
-            font-size: 20px;
-            font-weight: 700;
-            color: #333;
-        }
-
-        .card p {
-            color: #555;
-            font-size: 16px;
-            line-height: 1.5;
-        }
-
-        /* Media Queries for Responsiveness */
+        /* Responsive design elements (for smaller screens) */
         @media (max-width: 768px) {
-            .sidebar {
-                width: 200px;
+            #sidebar {
+                width: 100%; /* Full width for smaller screens */
+                height: auto; /* Auto height based on content */
+                position: relative; /* Normal flow of the document */
             }
-
-            .header .title {
-                font-size: 20px;
+            #header {
+                margin-left: 0; /* Header takes full width on small screens */
+                left: 0;
             }
-
-            .header .user-info span {
-                font-size: 14px;
-            }
-
-            .card h3 {
-                font-size: 18px;
-            }
-
-            .card p {
-                font-size: 14px;
+            #content {
+                margin-left: 0; /* Content takes full width on small screens */
+                margin-top: 50px; /* Adjusting content margin for small screens */
             }
         }
 
-        @media (max-width: 480px) {
-            .sidebar {
-                width: 150px;
-            }
+        /* Styling for ETracker logo */
+        #sidebar-nav ul li img {
+            margin-right: 4px;
+            width: 80px;
+            height: 70px;
+        }
 
-            .header .title {
-                font-size: 18px;
-            }
-
-            .header .user-info span {
-                font-size: 12px;
-            }
-
-            .card h3 {
-                font-size: 16px;
-            }
-
-            .card p {
-                font-size: 12px;
-            }
+        #sidebar-nav ul li span {
+            font-size: 25px;
+            color: #000000; /* Dark black text color */
         }
     </style>
-</head>
 
+</head>
 <body>
-<div class="sidebar">
-    <h2  style="margin-right:100px;text-transform: uppercase;text-decoration: none; font-weight: bold;margin-top: 15px">Admin-Dashboard</h2>
-    <ul>
-        <li>
-            <a href="#">
-                <i class="fas fa-home"></i> Home
-            </a>
-        </li>
-        <li>
-            <a href="#">
-                <i class="fas fa-box"></i> Products
-            </a>
-        </li>
-        <li>
-            <a href="#">
-                <i class="fas fa-shopping-cart"></i> Orders
-            </a>
-        </li>
-        <li>
-            <a href="#">
-                <i class="fas fa-users"></i> Customers
-            </a>
-        </li>
-        <li>
-            <a href="#">
-                <i class="fas fa-chart-line"></i> Reports
-            </a>
-        </li>
-        <li>
-            <a href="#">
-                <i class="fas fa-cog"></i> Settings
-            </a>
-        </li>
-    </ul>
-</div>
-<div class="main-content">
-    <div class="header">
-        <div class="title">
-            <i class="fas fa-user"></i> Admin
-        </div>
-        <div class="user-info">
-            <img src="https://via.placeholder.com/40" alt="User Avatar">
-            <c:if test="${not empty user}">
-                <span>${user}</span>
-            </c:if>
-        </div>
-        <a href="logIn" style="color: #1877F2;">
-            <i class="fas fa-sign-out-alt"></i> Logout
-        </a>
+
+<section id="sidebar">
+    <div class="white-label"></div>
+    <div id="sidebar-nav">
+        <ul>
+            <li>
+
+                <span>Admin-Dashboard</span>
+            </li>
+            <li class="active"><a href="DashboardController?action=DashBoard"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+            <li><a href="DashboardController?action=Records"><i class="fa fa-file-text-o"></i> Records</a></li>
+            <li><a href="DashboardController?action=Budget"><i class="fa fa-money"></i> Budget</a></li>
+            <li><a href="DashboardController?action=Accounts"><i class="fa fa-users"></i> Accounts</a></li>
+            <li><a href="DashboardController?action=Transation"><i class="fa fa-exchange"></i> Transactions</a></li>
+            <li><a href="addstudent"><i class="fa fa-plus-square-o"></i> Add students</a></li>
+        </ul>
     </div>
-    <div class="content">
-        <!-- Your other content goes here -->
+</section>
+<section id="content">
+    <div id="header">
+        <div class="header-nav">
+            <div class="menu-button">
+                <!-- Placeholder for menu button if needed -->
+            </div>
+            <div class="nav">
+                <ul>
+                    <li class="nav-settings"><div class="font-icon"><i class="fa fa-tasks"></i></div></li>
+                    <li class="nav-mail"><div class="font-icon"><i class="fa fa-envelope-o"></i></div></li>
+                    <li class="nav-calendar"><div class="font-icon"><i class="fa fa-calendar"></i></div></li>
+                    <li class="nav-chat"><div class="font-icon"><i class="fa fa-comments-o"></i></div></li>
+                    <li class="nav-profile">
+                        <div class="header">
+                            <div class="title">
+                                <i class="fas fa-user"></i> Admin
+                            </div>
+                            <div class="user-info">
+                                <img src="https://via.placeholder.com/40" alt="User Avatar">
+                                <c:if test="${not empty user}">
+                                    <span>${user}</span>
+                                </c:if>
+                            </div>
+                            <a href="logIn" style="color: #1877F2;">
+                                <i class="fas fa-sign-out-alt"></i> Logout
+                            </a>
+                        </div>
+
+            </ul>
+        </div>
     </div>
-</div>
+    </div>
+</section>
+
 </body>
 </html>
