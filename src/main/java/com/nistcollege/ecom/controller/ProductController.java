@@ -44,9 +44,10 @@ public class ProductController {
     }
 
     @RequestMapping(value = "/saveProduct", method = RequestMethod.POST)
-    public ModelAndView addProduct(@ModelAttribute ProductModel product,
-                                   @RequestParam("imageUrl") MultipartFile file) {
+    public ModelAndView addProduct(@ModelAttribute ProductModel product) {
         ModelAndView modelAndView = new ModelAndView("AdminProduct");
+
+        MultipartFile file = product.getImageFile();
 
         if (file.isEmpty()) {
             modelAndView.addObject("message", "Please select a file to upload");

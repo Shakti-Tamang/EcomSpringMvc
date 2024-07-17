@@ -1,11 +1,9 @@
 package com.nistcollege.ecom.model;
 
 import lombok.Data;
+import org.springframework.web.multipart.MultipartFile;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 @Data
@@ -24,4 +22,7 @@ public class ProductModel {
     private int quantity; // Add this field
     private LocalDateTime createdAt;
     private LocalDateTime updated;
+
+    @Transient
+    private MultipartFile imageFile; // Holds the uploaded file during request
 }

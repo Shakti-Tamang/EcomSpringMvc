@@ -55,9 +55,8 @@
             <input type="number" class="form-control" id="quantity" name="quantity" required>
         </div>
         <div class="form-group">
-            <label for="imageUrl">Image URL:</label>
-            <input type="file" class="form-control" id="imageUrl" name="imageUrl" required>
-
+            <label for="imageFile">Image:</label>
+            <input type="file" class="form-control" id="imageFile" name="imageFile" required>
         </div>
         <div class="form-group">
             <label for="category">Category:</label>
