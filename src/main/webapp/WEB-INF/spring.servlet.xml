@@ -10,7 +10,6 @@
            http://www.springframework.org/schema/mvc
            http://www.springframework.org/schema/mvc/spring-mvc.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
 
-
     <!--    for recokginig chinaune-->
     <!-- Enable MVC annotations processing   @controller handling client request-->
     <mvc:annotation-driven/>
@@ -23,6 +22,13 @@
         <property name="prefix" value="/WEB-INF/"></property>
         <property name="suffix" value=".jsp"></property>
     </bean>
+<!--    file upload-->
+    <bean id="multipartResolver"
+          class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <property name="maxUploadSize" value="104857600"/> <!-- 100 MB -->
+    </bean>
+
+
 
     <!-- Data Source Configuration -->
     <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
@@ -38,6 +44,7 @@
         <property name="annotatedClasses">
             <list>
                 <value>com.nistcollege.ecom.model.Usermodel1</value>
+                <value>com.nistcollege.ecom.model.ProductModel</value>
             </list>
         </property>
         <property name="hibernateProperties">
@@ -66,6 +73,7 @@
 
     <!-- Service Beans  service haru chinauna-->
 
-    <bean id="teacherDetail" class="com.nistcollege.ecom.service.UserServiceImpl"/>
+    <bean id="userService" class="com.nistcollege.ecom.service.UserServiceImpl"/>
+    <bean id="ProductService" class="com.nistcollege.ecom.service.ProductServiceImpl"/>
 
 </beans>

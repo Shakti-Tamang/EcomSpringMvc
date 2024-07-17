@@ -8,7 +8,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page isELIgnored="false" %>
-
 <html>
 <head>
     <title>Title</title>
@@ -18,7 +17,6 @@
     <style>
         /* General body styling */
         body {
-
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
@@ -61,7 +59,7 @@
 
         #sidebar-nav ul li a:hover {
             background-color: #e9ecef; /* Light gray background for hover state */
-            color:rgb(100,220,164); /* Green color text for hover */
+            color: rgb(255, 147, 2); /* Orange color text for hover */
         }
 
         /* Header styling */
@@ -98,18 +96,18 @@
 
         /* Logout button styling */
         .logout {
-            margin-left: 490px; /* Move logout button to the right */
+            margin-left: 690px; /* Move logout button to the right */
             border: 0px solid gray; /* Correct border syntax */
             color: gray;
             height: 35px;
             width: 75px;
             transition: color 0.3s;
-            font-size: 16px; /* Decrease font size */
+            font-size: 26px; /* Decrease font size */
             padding: 5px 10px; /* Decrease padding */
         }
 
         .logout:hover {
-            color:rgb(100,220,164);
+            color:rgb(255, 147, 2);
         }
 
         /* Content area styling */
@@ -161,15 +159,14 @@
     <div id="sidebar-nav">
         <ul>
             <li>
-
-                <span>Admin-Dashboard</span>
+                <span style="color:rgb(255, 147, 2);">Admin-Dashboard</span>
             </li>
-            <li class="active"><a href="DashboardController?action=DashBoard"><i class="fa fa-dashboard"></i> Dashboard</a></li>
-            <li><a href="DashboardController?action=Records"><i class="fa fa-file-text-o"></i> Records</a></li>
-            <li><a href="DashboardController?action=Budget"><i class="fa fa-money"></i> Budget</a></li>
-            <li><a href="DashboardController?action=Accounts"><i class="fa fa-users"></i> Accounts</a></li>
-            <li><a href="DashboardController?action=Transation"><i class="fa fa-exchange"></i> Transactions</a></li>
-            <li><a href="addstudent"><i class="fa fa-plus-square-o"></i> Add students</a></li>
+            <li><a href="#" style="text-transform: uppercase;text-decoration: none; font-weight: bold;"><i class="fa fa-home"></i> Home</a></li>
+            <li><a href="product" style="text-transform: uppercase;text-decoration: none; font-weight: bold;"><i class="fa fa-product-hunt"></i> Products</a></li>
+            <li><a href="#" style="text-transform: uppercase;text-decoration: none; font-weight: bold;"><i class="fa fa-shopping-cart"></i> Orders</a></li>
+            <li><a href="#" style="text-transform: uppercase;text-decoration: none; font-weight: bold;"><i class="fa fa-users"></i> Customers</a></li>
+            <li><a href="#" style="text-transform: uppercase;text-decoration: none; font-weight: bold;"><i class="fa fa-bar-chart"></i> Reports</a></li>
+            <li><a href="#" style="text-transform: uppercase;text-decoration: none; font-weight: bold;"><i class="fa fa-cogs"></i> Settings</a></li>
         </ul>
     </div>
 </section>
@@ -181,29 +178,23 @@
             </div>
             <div class="nav">
                 <ul>
-                    <li class="nav-settings"><div class="font-icon"><i class="fa fa-tasks"></i></div></li>
-                    <li class="nav-mail"><div class="font-icon"><i class="fa fa-envelope-o"></i></div></li>
-                    <li class="nav-calendar"><div class="font-icon"><i class="fa fa-calendar"></i></div></li>
-                    <li class="nav-chat"><div class="font-icon"><i class="fa fa-comments-o"></i></div></li>
                     <li class="nav-profile">
-                        <div class="header">
-                            <div class="title">
-                                <i class="fas fa-user"></i> Admin
-                            </div>
-                            <div class="user-info">
-                                <img src="https://via.placeholder.com/40" alt="User Avatar">
+                        <div class="nav-profile-image">
+                            <div class="nav-profile-name">
+                                <i style="color:rgb(255, 147, 2);width: 18px;height: 20px;" class="fa fa-user"></i>
                                 <c:if test="${not empty user}">
-                                    <span>${user}</span>
+                                    <span style="color:rgb(255, 147, 2);text-transform: uppercase;text-decoration: none; font-weight: bold;font-size: 18px;margin-top: 22px;">${user}</span>
                                 </c:if>
                             </div>
-                            <a href="logIn" style="color: #1877F2;">
-                                <i class="fas fa-sign-out-alt"></i> Logout
-                            </a>
                         </div>
-
-            </ul>
+                    </li>
+                    <li>
+                        <!-- Add icon in front of Logout anchor tag and style it -->
+                        <a class="logout" href="logIn" style="font-size: 17px;"><i class="fa fa-sign-out" style="color:rgb(255, 147, 2);"></i> Logout</a>
+                    </li>
+                </ul>
+            </div>
         </div>
-    </div>
     </div>
 </section>
 

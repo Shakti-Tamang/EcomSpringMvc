@@ -176,7 +176,7 @@
                 <option value="ADMIN">Admin</option>
             </select>
         </div>
-        <button type="submit">Sign Up</button>
+        <button type="submit" style="background:rgb(255, 147, 2);">Sign Up</button>
         <p class="redirect">Already have an account? <a href="logIn">Login here</a>.</p>
     </form>
 </div>
