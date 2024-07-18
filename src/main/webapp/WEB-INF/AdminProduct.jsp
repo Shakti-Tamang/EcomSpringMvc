@@ -29,7 +29,9 @@
 </head>
 <body>
 <div class="container">
-    <h2>Add New Product</h2>
+    <h2 style="color: #808080;">
+        <i class="fas fa-plus-circle"></i> Add New Product
+    </h2>
     <c:if test="${not empty message}">
         <h3 style="color:red">${message}</h3>
     </c:if>
@@ -66,8 +68,50 @@
             <label for="brand">Brand:</label>
             <input type="text" class="form-control" id="brand" name="brand">
         </div>
-        <button type="submit" class="btn btn-primary">Save Product</button>
+        <button style="background:rgb(255, 147, 2);" type="submit" class="btn btn-primary">Save Product</button>
     </form>
+    <h2 style="color: #808080; margin-top: 75px;">
+        <i class="fas fa-list-alt"></i> Product List
+    </h2>
+
+    <c:if test="${!empty productList}">
+        <table class="table table-hover table-responsive-md">
+            <thead class="tbl-header">
+            <tr>
+                <th>ID</th>
+                <th>UserName</th>
+                <th>Email</th>
+                <th>Password</th>
+                <th>confirm password</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody id="th-body">
+            <c:forEach items="${productList}" var="product">
+                <tr>
+                    <td><c:out value="${product.id}" /></td>
+                    <td><c:out value="${product.username}" /></td>
+                    <td><c:out value="${product.email}" /></td>
+                    <td><c:out value="${product.password}" /></td>
+                    <td><c:out value="${product.confirmPassword} "/></td>
+                    <td>
+                        <a class="btn btn-danger" href="<c:url value='/deleteProduct?id=${Student.id}'/>" onclick="return confirmdelete()">Delete</a>
+
+                        <a class="btn btn-danger" href="<c:url value='/edit?id=${Student.id}'/>">Edit</a>
+
+                    </td>
+
+                </tr>
+            </c:forEach>
+            </tbody>
+        </table>
+    </c:if>
+<script>
+    function confirmDelete() {
+        return confirm("Are you sure you want to delete the data");
+    }
+</script>
 </div>
+
 </body>
 </html>

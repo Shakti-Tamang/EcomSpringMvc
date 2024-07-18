@@ -2,13 +2,11 @@ package com.nistcollege.ecom.controller;
 
 import com.nistcollege.ecom.model.ProductModel;
 import com.nistcollege.ecom.service.ProductService;
+import org.dom4j.rule.Mode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -21,6 +19,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Controller
 public class ProductController {
@@ -84,5 +83,20 @@ public class ProductController {
 
         modelAndView.addObject("message", "Product successfully saved");
         return modelAndView;
+    }
+
+    @RequestMapping(value = "/getProduct",method = RequestMethod.GET)
+    public ModelAndView getProduct(){
+        ModelAndView modelAndView=null;
+
+        return  modelAndView;
+    }
+    @RequestMapping(value = "/deleteProduct",method = RequestMethod.GET)
+    public ModelAndView deleteById(@RequestParam("productId")int id){
+        productService.deleteById(id);
+        List<ProductModel>list=productService.getDetailProduct();
+        ModelAndView modelAndView=new ModelAndView("AdminProduct");
+modelAndView.addObject("productList",list);
+return modelAndView;
     }
 }
