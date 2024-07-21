@@ -117,7 +117,9 @@
                     <td><c:out value="${product.productId}" /></td>
                     <td><c:out value="${product.name}" /></td>
                     <td><c:out value="${product.description}"/></td>
-                    <td><img src="${pageContext.request.contextPath}${product.imageUrl}" class="product-image" alt="Product Image"/></td>
+                    <td>
+                        <img src="${pageContext.request.contextPath}/image/${product.imageUrl}" class="product-image" alt="Product Image"/>
+                    </td>
                     <td><c:out value="${product.category}"/></td>
                     <td><c:out value="${product.brand}"/></td>
                     <td><c:out value="${product.quantity}"/></td>
@@ -135,15 +137,12 @@
     </div>
 </div>
 <script>
-    // Define context path for JavaScript
-    var contextPath = '${pageContext.request.contextPath}';
-
     document.getElementById('productForm').addEventListener('submit', function(event) {
-        event.preventDefault(); // Prevent the form from submitting the traditional way
+        event.preventDefault();
 
         var formData = new FormData(this);
 
-        fetch(contextPath + '/saveProduct', {
+        fetch('${pageContext.request.contextPath}/saveProduct', {
             method: 'POST',
             body: formData
         })
@@ -156,33 +155,33 @@
                     messageElement.innerHTML = '<h3 style="color:green">' + data.message + '</h3>';
                     var productListElement = document.getElementById('productList');
                     productListElement.innerHTML = '';
-
                     data.productList.forEach(function(product) {
                         var row = '<tr>' +
-                            '<td>' + product.productId+ '</td>' +
+                            '<td>' + product.productId + '</td>' +
                             '<td>' + product.name + '</td>' +
                             '<td>' + product.description + '</td>' +
-                            '<td><img src="' + contextPath + encodeURIComponent(product.imageUrl) + '" class="product-image" alt="Product Image"/></td>' +
+                            '<td><img src="' + '${pageContext.request.contextPath}' + '/image/' + product.imageUrl + '" class="product-image" alt="Product Image"/></td>' +
                             '<td>' + product.category + '</td>' +
                             '<td>' + product.brand + '</td>' +
                             '<td>' + product.quantity + '</td>' +
                             '<td>' + product.price + '</td>' +
-                            '<td><a class="btn btn-danger" style="background:rgb(255, 147, 2);" href="' + contextPath + '/deleteProduct?id=' + product.productId + '" onclick="return confirmDelete()">Delete</a></td>' +
-                            '<td><a class="btn btn-danger" style="background:rgb(255, 147, 2);" href="' + contextPath + '/edit?id=' + product.productId + '">Edit</a></td>' +
+                            '<td><a class="btn btn-danger" style="background:rgb(255, 147, 2);" href="' + '${pageContext.request.contextPath}' + '/deleteProduct?id=' + product.productId + '" onclick="return confirmDelete()">Delete</a></td>' +
+                            '<td><a class="btn btn-danger" style="background:rgb(255, 147, 2);" href="' + '${pageContext.request.contextPath}' + '/edit?id=' + product.productId + '">Edit</a></td>' +
                             '</tr>';
-                        productListElement.insertAdjacentHTML('beforeend', row);
+                        productListElement.innerHTML += row;
                     });
-
-                    document.getElementById('productForm').reset(); // Clear the form
                 } else {
                     messageElement.innerHTML = '<h3 style="color:red">' + data.message + '</h3>';
                 }
             })
-            .catch(error => console.error('Error:', error));
+            .catch(error => {
+                var messageElement = document.getElementById('message');
+                messageElement.innerHTML = '<h3 style="color:red">An error occurred while saving the product. Please try again.</h3>';
+            });
     });
 
     function confirmDelete() {
-        return confirm('Are you sure you want to delete this product?');
+        return confirm("Are you sure you want to delete this product?");
     }
 </script>
 </body>

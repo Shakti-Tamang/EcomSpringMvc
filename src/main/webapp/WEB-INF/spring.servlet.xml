@@ -69,7 +69,7 @@
 
 
     <!-- Static Resource Handling -->
-    <mvc:resources mapping="/Images/**" location="/Image/"/>
+    <mvc:resources mapping="/image/**" location="/image/"/>
 
 
 </beans>

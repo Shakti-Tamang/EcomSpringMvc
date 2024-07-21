@@ -35,7 +35,8 @@ public class ProductController {
         ModelAndView modelAndView = new ModelAndView("AdminProduct");
         return modelAndView;
     }
-    private static final String UPLOAD_DIRECTORY = "C:\\Users\\Shakti\\Ecommerse\\src\\main\\webapp\\Image";
+
+    private static final String UPLOAD_DIRECTORY = "C:\\Users\\Shakti\\Ecommerse\\src\\main\\webapp\\image";
 
     static {
         File directory = new File(UPLOAD_DIRECTORY);
@@ -67,11 +68,8 @@ public class ProductController {
             String path = Paths.get(UPLOAD_DIRECTORY, sanitizedFilename).toString();
             file.transferTo(new File(path));
 
-            // Get the context path
             String contextPath = request.getContextPath();
-
-            // Update the URL path to include the context path
-            product.setImageUrl(contextPath + "/Image/" + sanitizedFilename);
+            product.setImageUrl(sanitizedFilename);
             productService.saveProduct(product);
 
             List<ProductModel> list = productService.getDetailProduct();
