@@ -6,6 +6,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+
 @Data
 @Entity
 public class ProductModel {
@@ -19,10 +20,8 @@ public class ProductModel {
     private String imageUrl;
     private String category;
     private String brand;
-    private int quantity; // Add this field
-    private LocalDateTime createdAt;
-    private LocalDateTime updated;
+    private int quantity;
 
     @Transient
-    private MultipartFile imageFile; // Holds the uploaded file during request
+    private MultipartFile imageFile;
 }

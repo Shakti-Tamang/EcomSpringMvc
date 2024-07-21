@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.BufferedOutputStream;
 import java.io.File;
@@ -19,7 +20,9 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 public class ProductController {
@@ -32,8 +35,7 @@ public class ProductController {
         ModelAndView modelAndView = new ModelAndView("AdminProduct");
         return modelAndView;
     }
-
-    private static final String UPLOAD_DIRECTORY = "C:\\Users\\Shakti\\Pictures\\Saved Pictures\\uploads\\images";
+    private static final String UPLOAD_DIRECTORY = "C:\\Users\\Shakti\\Ecommerse\\src\\main\\webapp\\Image";
 
     static {
         File directory = new File(UPLOAD_DIRECTORY);
@@ -43,60 +45,55 @@ public class ProductController {
     }
 
     @RequestMapping(value = "/saveProduct", method = RequestMethod.POST)
-    public ModelAndView addProduct(@ModelAttribute ProductModel product) {
-        ModelAndView modelAndView = new ModelAndView("AdminProduct");
-
+    public @ResponseBody Map<String, Object> addProduct(HttpServletRequest request, @ModelAttribute ProductModel product) {
+        Map<String, Object> response = new HashMap<>();
         MultipartFile file = product.getImageFile();
 
         if (file.isEmpty()) {
-            modelAndView.addObject("message", "Please select a file to upload");
-            return modelAndView;
+            response.put("status", "error");
+            response.put("message", "Please select a file to upload");
+            return response;
         }
 
         try {
-            // Validate file type
             if (!file.getContentType().startsWith("image/")) {
-                modelAndView.addObject("message", "Please upload a valid image file");
-                return modelAndView;
+                response.put("status", "error");
+                response.put("message", "Please upload a valid image file");
+                return response;
             }
 
-            // Sanitize and save the file
             String originalFilename = file.getOriginalFilename();
             String sanitizedFilename = originalFilename.replaceAll("[^a-zA-Z0-9\\.\\-]", "_");
             String path = Paths.get(UPLOAD_DIRECTORY, sanitizedFilename).toString();
-
             file.transferTo(new File(path));
 
-            // Set the image URL
-            product.setImageUrl("/uploads/images/" + sanitizedFilename);
-            product.setCreatedAt(LocalDateTime.now());
-            product.setUpdated(LocalDateTime.now());
+            // Get the context path
+            String contextPath = request.getContextPath();
 
-            // Save product to the database
+            // Update the URL path to include the context path
+            product.setImageUrl(contextPath + "/Image/" + sanitizedFilename);
             productService.saveProduct(product);
+
+            List<ProductModel> list = productService.getDetailProduct();
+            response.put("status", "success");
+            response.put("message", "Product successfully saved");
+            response.put("productList", list);
 
         } catch (IOException e) {
             e.printStackTrace();
-            modelAndView.addObject("message", "Failed to upload file");
-            return modelAndView;
+            response.put("status", "error");
+            response.put("message", "Failed to upload file");
         }
 
-        modelAndView.addObject("message", "Product successfully saved");
-        return modelAndView;
+        return response;
     }
 
-    @RequestMapping(value = "/getProduct",method = RequestMethod.GET)
-    public ModelAndView getProduct(){
-        ModelAndView modelAndView=null;
-
-        return  modelAndView;
-    }
     @RequestMapping(value = "/deleteProduct",method = RequestMethod.GET)
     public ModelAndView deleteById(@RequestParam("productId")int id){
         productService.deleteById(id);
         List<ProductModel>list=productService.getDetailProduct();
         ModelAndView modelAndView=new ModelAndView("AdminProduct");
-modelAndView.addObject("productList",list);
-return modelAndView;
+       modelAndView.addObject("productList",list);
+   return modelAndView;
     }
 }

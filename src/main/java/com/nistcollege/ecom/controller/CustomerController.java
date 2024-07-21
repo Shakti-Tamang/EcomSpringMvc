@@ -42,6 +42,7 @@ public class CustomerController {
         Boolean found = userService.foundUser(usermodel1);
 
         if (found == true) {
+
             modelAndView = new ModelAndView("SingUp");
             modelAndView.addObject("message", "User already exists. Please try again with a different email.");
 

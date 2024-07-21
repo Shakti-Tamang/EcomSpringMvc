@@ -10,25 +10,23 @@
            http://www.springframework.org/schema/mvc
            http://www.springframework.org/schema/mvc/spring-mvc.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
 
-    <!--    for recokginig chinaune-->
-    <!-- Enable MVC annotations processing   @controller handling client request-->
+    <!-- Enable MVC annotations processing -->
     <mvc:annotation-driven/>
 
-    <!-- Component Scanning: Scan for controller classes   yesko ni main kam hamro package chinaune ho-->
+    <!-- Component Scanning -->
     <context:component-scan base-package="com.nistcollege.ecom.controller"/>
 
-    <!-- View Resolver Configuration: Resolve view names to actual JSP files -->
+    <!-- View Resolver Configuration -->
     <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-        <property name="prefix" value="/WEB-INF/"></property>
-        <property name="suffix" value=".jsp"></property>
+        <property name="prefix" value="/WEB-INF/"/>
+        <property name="suffix" value=".jsp"/>
     </bean>
-<!--    file upload-->
+
+    <!-- File Upload Configuration -->
     <bean id="multipartResolver"
           class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
         <property name="maxUploadSize" value="104857600"/> <!-- 100 MB -->
     </bean>
-
-
 
     <!-- Data Source Configuration -->
     <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
@@ -54,7 +52,6 @@
                 <prop key="hibernate.hbm2ddl.auto">update</prop>
             </props>
         </property>
-
     </bean>
 
     <!-- Transaction Manager Configuration -->
@@ -63,17 +60,16 @@
     </bean>
 
     <!-- Enable Transaction Annotations -->
-    <!--  it is done to run transaction -->
-
-    <!--    <tx:annotation-driven/> in Spring XML config makes sure that when
-    you use @Transactional in your code, Spring handles database operations like
-     saving or updating data correctly. It ensures that either all changes are
-      applied together or none at all, so your data stays reliable and consistent.-->
     <tx:annotation-driven/>
 
-    <!-- Service Beans  service haru chinauna-->
-
+    <!-- Service Beans -->
     <bean id="userService" class="com.nistcollege.ecom.service.UserServiceImpl"/>
     <bean id="ProductService" class="com.nistcollege.ecom.service.ProductServiceImpl"/>
+
+
+
+    <!-- Static Resource Handling -->
+    <mvc:resources mapping="/Images/**" location="/Image/"/>
+
 
 </beans>
