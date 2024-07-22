@@ -125,11 +125,12 @@
                     <td><c:out value="${product.quantity}"/></td>
                     <td><c:out value="${product.price}"/></td>
                     <td>
-                        <a class="btn btn-danger" style="background:rgb(255, 147, 2);" href="<c:url value='/deleteProduct?id=${product.productId}'/>" onclick="return confirmDelete()">Delete</a>
+                        <a class="btn btn-danger" style="background:rgb(255, 147, 2);" href="<c:url value='/deleteProduct?productId=${product.productId}'/>" onclick="return confirmDelete()">Delete</a>
                     </td>
                     <td>
-                        <a class="btn btn-danger" style="background:rgb(255, 147, 2);" href="<c:url value='/edit?id=${product.productId}'/>">Edit</a>
+                        <a class="btn btn-danger" style="background:rgb(255, 147, 2);" href="<c:url value='/edit?productId=${product.productId}'/>">Edit</a>
                     </td>
+
                 </tr>
             </c:forEach>
             </tbody>
@@ -165,8 +166,8 @@
                             '<td>' + product.brand + '</td>' +
                             '<td>' + product.quantity + '</td>' +
                             '<td>' + product.price + '</td>' +
-                            '<td><a class="btn btn-danger" style="background:rgb(255, 147, 2);" href="' + '${pageContext.request.contextPath}' + '/deleteProduct?id=' + product.productId + '" onclick="return confirmDelete()">Delete</a></td>' +
-                            '<td><a class="btn btn-danger" style="background:rgb(255, 147, 2);" href="' + '${pageContext.request.contextPath}' + '/edit?id=' + product.productId + '">Edit</a></td>' +
+                            '<td><a class="btn btn-danger" style="background:rgb(255, 147, 2);" href="' + '${pageContext.request.contextPath}' + '/deleteProduct?productId=' + product.productId + '" onclick="return confirmDelete()">Delete</a></td>' +
+                            '<td><a class="btn btn-danger" style="background:rgb(255, 147, 2);" href="' + '${pageContext.request.contextPath}' + '/edit?productId=' + product.productId + '">Edit</a></td>' +
                             '</tr>';
                         productListElement.innerHTML += row;
                     });
@@ -178,6 +179,7 @@
                 var messageElement = document.getElementById('message');
                 messageElement.innerHTML = '<h3 style="color:red">An error occurred while saving the product. Please try again.</h3>';
             });
+
     });
 
     function confirmDelete() {

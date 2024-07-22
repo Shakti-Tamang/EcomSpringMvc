@@ -51,8 +51,6 @@ public class CustomerController {
             userService.saveUser(usermodel1);
             modelAndView = new ModelAndView("LogIn");
         }
-
-
         return modelAndView;
     }
 
@@ -62,7 +60,6 @@ public class CustomerController {
         ModelAndView modelAndView = new ModelAndView("AdminGet");
         modelAndView.addObject("list", getUser);
         return modelAndView;
-
     }
 
     @RequestMapping(value = "/logIn", method = RequestMethod.GET)

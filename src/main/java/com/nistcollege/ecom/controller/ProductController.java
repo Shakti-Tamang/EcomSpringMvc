@@ -32,7 +32,16 @@ public class ProductController {
 
     @RequestMapping(value = "/product", method = RequestMethod.GET)
     public ModelAndView get() {
+        List<ProductModel> list = productService.getDetailProduct();
         ModelAndView modelAndView = new ModelAndView("AdminProduct");
+        modelAndView.addObject("productList", list);
+        return modelAndView;
+    }
+    @RequestMapping(value = "/userProduct",method = RequestMethod.GET)
+    public ModelAndView getProductUser(){
+        List<ProductModel>list=productService.getDetailProduct();
+        ModelAndView modelAndView=new ModelAndView("UserProduct");
+        modelAndView.addObject("productList",list);
         return modelAndView;
     }
 
@@ -46,7 +55,8 @@ public class ProductController {
     }
 
     @RequestMapping(value = "/saveProduct", method = RequestMethod.POST)
-    public @ResponseBody Map<String, Object> addProduct(HttpServletRequest request, @ModelAttribute ProductModel product) {
+    public @ResponseBody
+    Map<String, Object> addProduct(HttpServletRequest request, @ModelAttribute ProductModel product) {
         Map<String, Object> response = new HashMap<>();
         MultipartFile file = product.getImageFile();
 
@@ -86,12 +96,12 @@ public class ProductController {
         return response;
     }
 
-    @RequestMapping(value = "/deleteProduct",method = RequestMethod.GET)
-    public ModelAndView deleteById(@RequestParam("productId")int id){
+    @RequestMapping(value = "/deleteProduct", method = RequestMethod.GET)
+    public ModelAndView deleteById(@RequestParam("productId") Long id) {
         productService.deleteById(id);
-        List<ProductModel>list=productService.getDetailProduct();
-        ModelAndView modelAndView=new ModelAndView("AdminProduct");
-       modelAndView.addObject("productList",list);
-   return modelAndView;
+        List<ProductModel> list = productService.getDetailProduct();
+        ModelAndView modelAndView = new ModelAndView("AdminProduct");
+        modelAndView.addObject("productList", list);
+        return modelAndView;
     }
 }
