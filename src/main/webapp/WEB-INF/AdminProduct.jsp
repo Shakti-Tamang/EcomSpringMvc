@@ -62,33 +62,47 @@
         </c:if>
     </div>
     <form id="productForm" enctype="multipart/form-data">
+
+        <c:if test="${not empty productModel.productId}">
+            <div class="form-group">
+                <label for="productId">Product ID:</label>
+                <input type="text" class="form-control" id="productId" name="productId" value="${productModel.productId}" readonly>
+            </div>
+        </c:if>
+
         <div class="form-group">
             <label for="name">Product Name:</label>
-            <input type="text" class="form-control" id="name" name="name" required>
+            <input type="text" class="form-control" value="${productModel.name}" id="name" name="name" required>
         </div>
         <div class="form-group">
             <label for="description">Description:</label>
-            <textarea class="form-control" id="description" name="description" rows="3" required></textarea>
+            <textarea class="form-control" id="description" name="description" rows="3" required>${productModel.description}</textarea>
         </div>
         <div class="form-group">
             <label for="price">Price:</label>
-            <input type="number" class="form-control" id="price" name="price" required>
+            <input type="number" class="form-control" id="price" name="price" value="${productModel.price}" required>
         </div>
         <div class="form-group">
             <label for="quantity">Quantity:</label>
-            <input type="number" class="form-control" id="quantity" name="quantity" required>
+            <input type="number" class="form-control" id="quantity" name="quantity" value="${productModel.quantity}" required>
         </div>
         <div class="form-group">
             <label for="imageFile">Image:</label>
-            <input type="file" class="form-control" id="imageFile" name="imageFile" required>
+
+            <c:if test="${not empty productModel.imageUrl}">
+                <img src="${pageContext.request.contextPath}/image/${productModel.imageUrl}" class="product-image" alt="Product Image"/>
+                <input type="text" class="form-control" id="imageUrl" name="imageUrl" value="${productModel.imageUrl}" placeholder="Enter image URL or upload a new image">
+            </c:if>
+
+            <input type="file" class="form-control" id="imageFile" name="imageFile">
         </div>
         <div class="form-group">
             <label for="category">Category:</label>
-            <input type="text" class="form-control" id="category" name="category">
+            <input type="text" class="form-control" id="category" name="category" value="${productModel.category}">
         </div>
         <div class="form-group">
             <label for="brand">Brand:</label>
-            <input type="text" class="form-control" id="brand" name="brand">
+            <input type="text" class="form-control" id="brand" name="brand" value="${productModel.brand}">
         </div>
         <button style="background:rgb(255, 147, 2);" type="submit" class="btn btn-primary">Save Product</button>
     </form>
@@ -128,7 +142,7 @@
                         <a class="btn btn-danger" style="background:rgb(255, 147, 2);" href="<c:url value='/deleteProduct?productId=${product.productId}'/>" onclick="return confirmDelete()">Delete</a>
                     </td>
                     <td>
-                        <a class="btn btn-danger" style="background:rgb(255, 147, 2);" href="<c:url value='/edit?productId=${product.productId}'/>">Edit</a>
+                        <a class="btn btn-danger" style="background:rgb(255, 147, 2);" href="<c:url value='/editProduct?productId=${product.productId}'/>">Edit</a>
                     </td>
 
                 </tr>
@@ -167,7 +181,7 @@
                             '<td>' + product.quantity + '</td>' +
                             '<td>' + product.price + '</td>' +
                             '<td><a class="btn btn-danger" style="background:rgb(255, 147, 2);" href="' + '${pageContext.request.contextPath}' + '/deleteProduct?productId=' + product.productId + '" onclick="return confirmDelete()">Delete</a></td>' +
-                            '<td><a class="btn btn-danger" style="background:rgb(255, 147, 2);" href="' + '${pageContext.request.contextPath}' + '/edit?productId=' + product.productId + '">Edit</a></td>' +
+                            '<td><a class="btn btn-danger" style="background:rgb(255, 147, 2);" href="' + '${pageContext.request.contextPath}' + '/editProduct?productId=' + product.productId + '">Edit</a></td>' +
                             '</tr>';
                         productListElement.innerHTML += row;
                     });

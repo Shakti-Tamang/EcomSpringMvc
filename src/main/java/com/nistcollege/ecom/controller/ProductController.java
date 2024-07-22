@@ -53,10 +53,8 @@ public class ProductController {
             directory.mkdirs();
         }
     }
-
     @RequestMapping(value = "/saveProduct", method = RequestMethod.POST)
-    public @ResponseBody
-    Map<String, Object> addProduct(HttpServletRequest request, @ModelAttribute ProductModel product) {
+    public @ResponseBody Map<String, Object> addProduct(HttpServletRequest request, @ModelAttribute ProductModel product) {
         Map<String, Object> response = new HashMap<>();
         MultipartFile file = product.getImageFile();
 
@@ -78,9 +76,15 @@ public class ProductController {
             String path = Paths.get(UPLOAD_DIRECTORY, sanitizedFilename).toString();
             file.transferTo(new File(path));
 
-            String contextPath = request.getContextPath();
             product.setImageUrl(sanitizedFilename);
-            productService.saveProduct(product);
+
+            if (product.getProductId() != null && productService.getProductById(product.getProductId()) != null) {
+                // Update existing product
+                productService.editProduct(product);
+            } else {
+                // Save new product
+                productService.saveProduct(product);
+            }
 
             List<ProductModel> list = productService.getDetailProduct();
             response.put("status", "success");
@@ -103,5 +107,14 @@ public class ProductController {
         ModelAndView modelAndView = new ModelAndView("AdminProduct");
         modelAndView.addObject("productList", list);
         return modelAndView;
+    }
+    @RequestMapping(value ="/editProduct",method = RequestMethod.GET)
+    public ModelAndView getOneObject(@RequestParam("productId") Long Id){
+        ProductModel productModel=productService.getProductById(Id);
+
+        ModelAndView modelAndView=new ModelAndView("AdminProduct");
+        modelAndView.addObject("productModel",productModel);
+        return modelAndView;
+
     }
 }
