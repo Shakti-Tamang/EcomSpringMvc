@@ -37,13 +37,16 @@ public class ProductController {
         modelAndView.addObject("productList", list);
         return modelAndView;
     }
-    @RequestMapping(value = "/userProduct",method = RequestMethod.GET)
-    public ModelAndView getProductUser(){
-        List<ProductModel>list=productService.getDetailProduct();
-        ModelAndView modelAndView=new ModelAndView("UserProduct");
-        modelAndView.addObject("productList",list);
+
+    @RequestMapping(value = "/userProduct", method = RequestMethod.GET)
+    public ModelAndView getProductUser() {
+        List<ProductModel> list = productService.getDetailProduct();
+        ModelAndView modelAndView = new ModelAndView("UserProduct");
+        modelAndView.addObject("productList", list);
         return modelAndView;
     }
+
+
 
     private static final String UPLOAD_DIRECTORY = "C:\\Users\\Shakti\\Ecommerse\\src\\main\\webapp\\image";
 
@@ -111,10 +114,13 @@ public class ProductController {
     @RequestMapping(value ="/editProduct",method = RequestMethod.GET)
     public ModelAndView getOneObject(@RequestParam("productId") Long Id){
         ProductModel productModel=productService.getProductById(Id);
-
+        List<ProductModel>list=productService.getDetailProduct();
         ModelAndView modelAndView=new ModelAndView("AdminProduct");
         modelAndView.addObject("productModel",productModel);
+        modelAndView.addObject("productList",list);
         return modelAndView;
 
     }
+
+
 }
