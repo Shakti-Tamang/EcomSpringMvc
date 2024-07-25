@@ -30,100 +30,109 @@
         .row {
             display: flex;
             flex-wrap: wrap;
-            gap: 20px; /* Space between cards */
+            margin: -10px; /* Increased margin to create more space between cards */
         }
 
         .product-card {
-            flex: 1 1 calc(33.333% - 20px); /* 3 cards per row with space between */
-            max-width: calc(33.333% - 20px); /* Prevent cards from getting too wide */
-            margin-bottom: 20px;
+            flex: 1 1 calc(25% - 20px); /* 4 cards per row with more space between */
+            max-width: calc(25% - 20px); /* Prevent cards from getting too wide */
+            margin: 10px; /* Increased margin to provide more space between cards */
             border: 1px solid #ddd;
             border-radius: 8px;
             overflow: hidden;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 0 6px rgba(0, 0, 0, 0.1);
             transition: transform 0.3s, box-shadow 0.3s;
+            height: 300px; /* Decreased height for the card */
         }
 
         .product-card:hover {
-            transform: scale(1.05);
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transform: scale(1.03);
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
         }
 
         .product-image {
-            max-width: 100%;
-            height: 200px;
+            width: 100%;
+            height: 120px; /* Decreased height for the product image */
             object-fit: cover;
         }
 
         .product-info {
-            padding: 15px;
-            background-color: rgb(255, 147, 2); /* Background color for the info section */
-            color: #fff; /* Text color for better contrast */
-            border-top: 2px solid rgb(255, 147, 2);
+            padding: 8px;
+
+            color: #fff;
+            height: calc(100% - 120px); /* Adjust height to fit within the card */
+            overflow: auto;
         }
 
         .product-info h5 {
+            font-weight: bolder;
             margin: 0;
-            color: #fff; /* Text color for the product name */
+            font-size: 1rem;
+            color: black;
         }
 
         .product-info p {
-            margin: 5px 0;
-            color: #fff; /* Text color for the product details */
+            margin: 3px 0;
+            font-size: 0.9rem;
+            color: black;
         }
 
         .product-info strong {
-            color: #fff; /* Text color for strong tags */
+            color: black;
         }
 
         @media (max-width: 992px) {
             .product-card {
-                flex: 1 1 calc(50% - 20px); /* 2 cards per row on medium screens */
-                max-width: calc(50% - 20px);
+                flex: 1 1 calc(33.333% - 20px); /* 3 cards per row on medium screens */
+                max-width: calc(33.333% - 20px);
             }
         }
 
         @media (max-width: 768px) {
             .product-card {
-                flex: 1 1 100%; /* 1 card per row on small screens */
-                max-width: 100%;
+                flex: 1 1 calc(50% - 20px); /* 2 cards per row on small screens */
+                max-width: calc(50% - 20px);
             }
         }
 
         @media (max-width: 576px) {
+            .product-card {
+                flex: 1 1 calc(100% - 20px); /* 1 card per row on very small screens */
+                max-width: calc(100% - 20px);
+            }
+
             .product-image {
-                height: 150px;
+                height: 100px; /* Further decrease height for smaller screens */
             }
         }
 
     </style>
-    <jsp:include page="AdminGet.jsp"/>
+    <jsp:include page="customerDashBoard.jsp"/>
 </head>
 <body>
 <div class="container">
     <h2 style="color: #808080;">
-        <i class="fas fa-list-alt"></i> ProductList
-    </h2>
+        <i class="fas fa-list-alt"></i> Product List
+    </h2><br><br>
 
-    <!-- New Product Card Section -->
+
     <div class="row">
-        <div class="col-md-12">
-            <c:forEach var="product" items="${productList}">
-                <div class="product-card card">
-                    <img src="${pageContext.request.contextPath}/image/${product.imageUrl}" class="card-img-top product-image" alt="${product.name}"/>
-                    <div class="card-body product-info">
-                        <h5 class="card-title">${product.name}</h5>
-                        <p><strong>Description:</strong> ${product.description}</p>
-                        <p><strong>Category:</strong> ${product.category}</p>
-                        <p><strong>Brand:</strong> ${product.brand}</p>
-                        <p><strong>Quantity:</strong> ${product.quantity}</p>
-                        <p><strong>Price:</strong> $${product.price}</p>
-                    </div>
+        <c:forEach var="product" items="${productList}">
+            <div class="product-card card">
+                <img src="${pageContext.request.contextPath}/image/${product.imageUrl}" class="product-image" alt="${product.name}"/>
+                <div class="product-info">
+                    <h5>${product.name}</h5>
+                    <p><strong>Category:</strong> ${product.category}</p>
+                    <p><strong>Brand:</strong> ${product.brand}</p>
+                    <p><strong>Quantity:</strong> ${product.quantity}</p>
+                    <p><strong>Price:</strong> Rs. ${product.price}</p>
+                    <a class="btn" style="background-color: #28a745; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3), inset 0 1px 3px rgba(0, 0, 0, 0.2); width: 242px; margin-left: 3px; color: white; font-weight: bold; text-align: center; display: inline-block; text-decoration: none; transition: all 0.3s;" href="<c:url value='/addToCart?productId=${product.productId}'/>">
+                        Add To Cart
+                    </a>
                 </div>
-            </c:forEach>
-        </div>
+            </div>
+        </c:forEach>
     </div>
-
     <!-- Existing content -->
 </div>
 </body>

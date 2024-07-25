@@ -96,7 +96,7 @@
 
         /* Logout button styling */
         .logout {
-            margin-left: 690px; /* Move logout button to the right */
+            margin-left: 830px; /* Move logout button to the right */
             border: 0px solid gray; /* Correct border syntax */
             color: gray;
             height: 35px;
@@ -161,10 +161,9 @@
             <li>
                 <span style="color:rgb(255, 147, 2);">Shakti-stores</span>
             </li>
-            <li><a href="#" style="text-transform: uppercase;text-decoration: none; font-weight: bold;"><i class="fa fa-home"></i> Home</a></li>
             <li><a href="userProduct" style="text-transform: uppercase;text-decoration: none; font-weight: bold;"><i class="fa fa-product-hunt"></i> Products</a></li>
-            <li><a href="#" style="text-transform: uppercase;text-decoration: none; font-weight: bold;"><i class="fa fa-shopping-cart"></i> Orders</a></li>
-            <li><a href="#" style="text-transform: uppercase;text-decoration: none; font-weight: bold;"><i class="fa fa-users"></i> Customers</a></li>
+            <li><a href="addToCartPannel" style="text-transform: uppercase;text-decoration: none; font-weight: bold;"><i class="fa fa-shopping-cart"></i>Cart</a></li>
+            <li><a href="#" style="text-transform: uppercase;text-decoration: none; font-weight: bold;"><i class="fa fa-credit-card"></i> Payement</a></li>
             <li><a href="#" style="text-transform: uppercase;text-decoration: none; font-weight: bold;"><i class="fa fa-bar-chart"></i> Reports</a></li>
             <li><a href="#" style="text-transform: uppercase;text-decoration: none; font-weight: bold;"><i class="fa fa-cogs"></i> Settings</a></li>
         </ul>
@@ -181,7 +180,7 @@
                     <li class="nav-profile">
                         <div class="nav-profile-image">
                             <div class="nav-profile-name">
-                                <i style="color:rgb(255, 147, 2);width: 18px;height: 20px;" class="fa fa-user"></i>
+                                <i style="color:rgb(255, 147, 2);width: 18px;height: 20px;margin-top: 35px" class="fa fa-user"></i>
                                 <c:if test="${not empty user}">
                                     <span style="color:rgb(255, 147, 2);text-transform: uppercase;text-decoration: none; font-weight: bold;font-size: 18px;margin-top: 22px;">${user}</span>
                                 </c:if>
@@ -190,7 +189,7 @@
                     </li>
                     <li>
                         <!-- Add icon in front of Logout anchor tag and style it -->
-                        <a class="logout" href="logIn" style="font-size: 17px;"><i class="fa fa-sign-out" style="color:rgb(255, 147, 2);"></i> Logout</a>
+                        <a class="logout" href="home" style="font-size: 17px;"><i class="fa fa-sign-out" style="color:rgb(255, 147, 2);"></i> Logout</a>
                     </li>
                 </ul>
             </div>

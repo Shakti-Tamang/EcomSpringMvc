@@ -1,8 +1,9 @@
 package com.nistcollege.ecom.controller;
 
+import com.nistcollege.ecom.model.CartModel;
 import com.nistcollege.ecom.model.ProductModel;
+import com.nistcollege.ecom.service.CartService;
 import com.nistcollege.ecom.service.ProductService;
-import org.dom4j.rule.Mode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,6 +21,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -29,6 +31,9 @@ public class ProductController {
 
     @Autowired
     ProductService productService;
+
+    @Autowired
+    CartService cartService;
 
     @RequestMapping(value = "/product", method = RequestMethod.GET)
     public ModelAndView get() {
@@ -57,6 +62,9 @@ public class ProductController {
         }
     }
     @RequestMapping(value = "/saveProduct", method = RequestMethod.POST)
+
+//    string is key and object is value to be stored in this case vale is stored ramdomly
+//    so teasilae uta value talamathi cha
     public @ResponseBody Map<String, Object> addProduct(HttpServletRequest request, @ModelAttribute ProductModel product) {
         Map<String, Object> response = new HashMap<>();
         MultipartFile file = product.getImageFile();
@@ -121,6 +129,54 @@ public class ProductController {
         return modelAndView;
 
     }
+  @RequestMapping(value = "/addToCartPannel",method = RequestMethod.GET)
+  public ModelAndView goToCart(){
 
+        ModelAndView modelAndView=new ModelAndView("Cart");
+        return modelAndView;
+
+}
+
+@RequestMapping(value =  "/home",method = RequestMethod.GET)
+public ModelAndView getHome(){
+
+    ModelAndView modelAndView=new ModelAndView("Home");
+    return modelAndView;
+}
+    @RequestMapping(value = "/addToCart", method = RequestMethod.GET)
+    public ModelAndView addToCart(@RequestParam("productId") Long productId, HttpSession session) {
+
+        // Get the product details
+        ProductModel productModel = productService.getProductById(productId);
+
+        // Create a new CartModel and set the product details
+        CartModel cartModel = new CartModel();
+        cartModel.setBrand(productModel.getBrand());
+        cartModel.setCategory(productModel.getCategory());
+        cartModel.setName(productModel.getName());
+        cartModel.setPrice(productModel.getPrice());
+        cartModel.setQuantity(productModel.getQuantity());
+
+        // Save the cart model
+        cartService.saveCart(cartModel);
+
+        // Retrieve the list of cart items
+        List<CartModel> cartList = cartService.listOfcart();
+
+        // Return the cart view
+        ModelAndView modelAndView = new ModelAndView("Cart");
+        modelAndView.addObject("cart", cartList);
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/deleteCart",method = RequestMethod.GET)
+    public ModelAndView getAfterDelete(@RequestParam("id") Long Id){
+        cartService.deleteCart(Id);
+        List<CartModel>list=cartService.listOfcart();
+        // Return the cart view
+        ModelAndView modelAndView = new ModelAndView("Cart");
+        modelAndView.addObject("cart",list);
+        return modelAndView;
+    }
 
 }

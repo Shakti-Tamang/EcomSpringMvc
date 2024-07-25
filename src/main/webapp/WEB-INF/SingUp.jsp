@@ -172,12 +172,11 @@
         <div class="input-group">
             <label for="role">Role</label>
             <select id="role" name="role" required>
-                <option value="USER">User</option>
                 <option value="ADMIN">Admin</option>
             </select>
         </div>
-        <button type="submit" style="background:rgb(255, 147, 2);">Sign Up</button>
-        <p class="redirect">Already have an account? <a href="logIn">Login here</a>.</p>
+        <button type="submit" style="background:#3b5998;">Sign Up</button>
+        <p class="redirect" style="color: #28a745">Already have an account? <a href="logIn" style="color: #28a745">Login here</a>.</p>
     </form>
 </div>
 <script>

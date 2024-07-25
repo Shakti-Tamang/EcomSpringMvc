@@ -94,7 +94,7 @@
                 <input type="text" class="form-control" id="imageUrl" name="imageUrl" value="${productModel.imageUrl}" placeholder="Enter image URL or upload a new image">
             </c:if>
 
-            <input type="file" class="form-control" id="imageFile" name="imageFile">
+            <input type="file" class="form-control" id="imageFile" name="imageFile" value="${pageContext.request.contextPath}/image/${productModel.imageUrl}">
         </div>
         <div class="form-group">
             <label for="category">Category:</label>
@@ -113,7 +113,7 @@
         <table class="table table-hover table-responsive-md">
             <thead class="tbl-header">
             <tr>
-                <th>Product ID</th>
+                <th>Serial no.</th>
                 <th>Product Name</th>
                 <th>Description</th>
                 <th>Image</th>

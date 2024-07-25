@@ -107,7 +107,7 @@
         }
 
         .logout:hover {
-            color:rgb(255, 147, 2);
+            color:#28a745;
         }
 
         /* Content area styling */

@@ -43,6 +43,7 @@
             <list>
                 <value>com.nistcollege.ecom.model.Usermodel1</value>
                 <value>com.nistcollege.ecom.model.ProductModel</value>
+                <value>com.nistcollege.ecom.model.CartModel</value>
             </list>
         </property>
         <property name="hibernateProperties">
@@ -63,13 +64,21 @@
     <tx:annotation-driven/>
 
     <!-- Service Beans -->
-    <bean id="userService" class="com.nistcollege.ecom.service.UserServiceImpl"/>
+    <bean id="UserService" class="com.nistcollege.ecom.service.UserServiceImpl"/>
     <bean id="ProductService" class="com.nistcollege.ecom.service.ProductServiceImpl"/>
+    <bean id="CartService" class="com.nistcollege.ecom.service.CartServiceImpl"/>
 
 
 
     <!-- Static Resource Handling -->
     <mvc:resources mapping="/image/**" location="/image/"/>
+
+    <mvc:resources mapping="/imageFront/**" location="/frontImage/"/>
+
+    <mvc:resources mapping="/javascript/**" location="/javascript/"/>
+
+    <mvc:resources mapping="/Css/**" location="/Css/"/>
+
 
 
 </beans>

@@ -1,0 +1,50 @@
+*{
+	margin:0;
+	padding:0;
+}
+
+#myNav{
+	background:black;
+}
+#myNav .nav-link{
+	color:#fff;
+}
+#logo{
+	position:relative;
+	left:689px;
+	font-family: 'Kaushan Script', cursive;
+	font-size:50px;
+	text-decoration:underline;
+	color:#fff;
+}
+#cont{
+	min-height:100%;
+	background:burlywood;
+}
+#n1{
+	position:relative;
+	left:-255px;
+	font-size:18px;
+	font-weight:bold;"
+}
+#n2{
+	position:relative;
+	left:-255px;
+	font-size:18px;
+	font-weight:bold;"
+}
+#n3{
+	position:relative;
+	left:12px;
+	font-size:18px;
+	font-weight:bold;"
+}
+#n4{
+	position:relative;
+	left:58px;
+	font-size:18px;
+	font-weight:bold;"
+}
+#btn2{
+	margin-left:15px;
+}
