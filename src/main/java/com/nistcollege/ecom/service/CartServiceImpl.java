@@ -36,4 +36,11 @@ public class CartServiceImpl implements CartService {
             session.delete(cartModel);
         }
     }
+
+    @Override
+    public CartModel getCartById(Long Id) {
+        Session session=sessionFactory.getCurrentSession();
+        CartModel cartModel=session.get(CartModel.class,Id);
+        return cartModel;
+    }
 }

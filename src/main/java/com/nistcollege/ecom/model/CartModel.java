@@ -17,6 +17,6 @@ public class CartModel {
     private BigDecimal price;
     private String category;
     private String brand;
-    private int quantity;
+    private int quantity=1;
 
 }

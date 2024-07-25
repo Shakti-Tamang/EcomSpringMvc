@@ -178,5 +178,33 @@ public ModelAndView getHome(){
         modelAndView.addObject("cart",list);
         return modelAndView;
     }
+    @RequestMapping(value = "/increaseQuantity", method = RequestMethod.POST)
+    public ModelAndView increaseQuantity(@RequestParam("id") Long id) {
+        CartModel cartItem = cartService.getCartById(id);
+        if (cartItem != null) {
+            ProductModel product = productService.getProductByName(cartItem.getName());
+            if (cartItem.getQuantity() < product.getQuantity()) {
+                cartItem.setQuantity(cartItem.getQuantity() + 1);
+                cartService.saveCart(cartItem);
+            }
+        }
+        List<CartModel> cartList = cartService.listOfcart();
+        ModelAndView modelAndView = new ModelAndView("Cart");
+        modelAndView.addObject("cart", cartList);
+        return modelAndView;
+    }
 
+    @RequestMapping(value = "/decreaseQuantity", method = RequestMethod.POST)
+    public ModelAndView decreaseQuantity(@RequestParam("id") Long id) {
+        CartModel cartItem = cartService.getCartById(id);
+        if (cartItem != null && cartItem.getQuantity() > 1) {
+            cartItem.setQuantity(cartItem.getQuantity() - 1);
+            cartService.saveCart(cartItem);
+        }
+        List<CartModel> cartList = cartService.listOfcart();
+        ModelAndView modelAndView = new ModelAndView("Cart");
+        modelAndView.addObject("cart", cartList);
+        return modelAndView;
+    }
 }
+

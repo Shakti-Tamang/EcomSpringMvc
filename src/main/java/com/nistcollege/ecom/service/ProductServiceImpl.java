@@ -4,6 +4,7 @@ import com.nistcollege.ecom.model.ProductModel;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.hibernate.query.Query; // This is the correct import for Hibernate Query
 
 import javax.transaction.Transactional;
 import java.util.ArrayList;
@@ -42,6 +43,16 @@ if(productModel!=null){
     ProductModel productModel=session.get(ProductModel.class,Id);
         return productModel;
     }
+
+    @Transactional
+    @Override
+    public ProductModel getProductByName(String name) {
+        Session session = sessionFactory.getCurrentSession();
+        Query<ProductModel> query = session.createQuery("FROM ProductModel WHERE name = :name", ProductModel.class);
+        query.setParameter("name", name);
+        return query.uniqueResultOptional().orElse(null);
+    }
+
 
     @Override
     public void editProduct(ProductModel productModel) {

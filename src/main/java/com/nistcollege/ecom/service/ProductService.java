@@ -9,5 +9,6 @@ public interface ProductService {
     public List<ProductModel> getDetailProduct();
     public void deleteById(Long id);
     public ProductModel getProductById(Long Id);
+    public ProductModel getProductByName(String name);
     public void editProduct(ProductModel productModel);
 }

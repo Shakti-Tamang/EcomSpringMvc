@@ -8,6 +8,7 @@ public interface CartService {
     public void saveCart(CartModel cartModel);
     public List<CartModel>listOfcart();
     public void deleteCart(Long Id);
+    public CartModel getCartById(Long Id);
 
 
 }

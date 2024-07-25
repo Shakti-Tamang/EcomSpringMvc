@@ -82,8 +82,9 @@
                     <td><c:out value="${product.category}"/></td>
                     <td><c:out value="${product.brand}"/></td>
                     <td>
-                        <a class="btn btn-danger" style="background:red;">+</a>
-                        <a class="btn btn-danger" style="background:red; margin-left: 22px;">-</a>
+                        <button class="btn btn-danger" style="background:red;" onclick="updateQuantity('${product.id}', 'increase')">+</button>
+                        <span>${product.quantity}</span>
+                        <button class="btn btn-danger" style="background:red;" onclick="updateQuantity('${product.id}', 'decrease')">-</button>
                     </td>
                     <td><c:out value="Rs.${product.price}"/></td>
                     <td>
@@ -106,6 +107,20 @@
             return confirm("Are you sure you want to delete this product?");
         }
 
+
+        function updateQuantity(productId, action) {
+            $.ajax({
+                url: action === 'increase' ? '<c:url value="/increaseQuantity"/>' : '<c:url value="/decreaseQuantity"/>',
+                type: 'POST',
+                data: { id: productId },
+                success: function (response) {
+                    $('#productList').html($(response).find('#productList').html());
+                },
+                error: function () {
+                    alert('Error updating quantity');
+                }
+            });
+        }
     </script>
 </body>
 </html>
