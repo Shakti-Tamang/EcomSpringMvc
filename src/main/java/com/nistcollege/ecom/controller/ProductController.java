@@ -17,6 +17,7 @@ import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -52,8 +53,7 @@ public class ProductController {
     }
 
 
-
-    private static final String UPLOAD_DIRECTORY = "C:\\Users\\Shakti\\Ecommerse\\src\\main\\webapp\\image";
+    private static final String UPLOAD_DIRECTORY = "C:\\Users\\Shakti\\IdeaProjects\\Ecommerse\\src\\main\\webapp\\image";
 
     static {
         File directory = new File(UPLOAD_DIRECTORY);
@@ -61,11 +61,14 @@ public class ProductController {
             directory.mkdirs();
         }
     }
+
     @RequestMapping(value = "/saveProduct", method = RequestMethod.POST)
 
-//    string is key and object is value to be stored in this case vale is stored ramdomly
+//    string is key and object is v
+//    alue to be stored in this case vale is stored ramdomly
 //    so teasilae uta value talamathi cha
-    public @ResponseBody Map<String, Object> addProduct(HttpServletRequest request, @ModelAttribute ProductModel product) {
+    public @ResponseBody
+    Map<String, Object> addProduct(HttpServletRequest request, @ModelAttribute ProductModel product) {
         Map<String, Object> response = new HashMap<>();
         MultipartFile file = product.getImageFile();
 
@@ -119,30 +122,33 @@ public class ProductController {
         modelAndView.addObject("productList", list);
         return modelAndView;
     }
-    @RequestMapping(value ="/editProduct",method = RequestMethod.GET)
-    public ModelAndView getOneObject(@RequestParam("productId") Long Id){
-        ProductModel productModel=productService.getProductById(Id);
-        List<ProductModel>list=productService.getDetailProduct();
-        ModelAndView modelAndView=new ModelAndView("AdminProduct");
-        modelAndView.addObject("productModel",productModel);
-        modelAndView.addObject("productList",list);
+
+    @RequestMapping(value = "/editProduct", method = RequestMethod.GET)
+    public ModelAndView getOneObject(@RequestParam("productId") Long Id) {
+        ProductModel productModel = productService.getProductById(Id);
+        List<ProductModel> list = productService.getDetailProduct();
+        ModelAndView modelAndView = new ModelAndView("AdminProduct");
+        modelAndView.addObject("productModel", productModel);
+        modelAndView.addObject("productList", list);
         return modelAndView;
 
     }
-  @RequestMapping(value = "/addToCartPannel",method = RequestMethod.GET)
-  public ModelAndView goToCart(){
 
-        ModelAndView modelAndView=new ModelAndView("Cart");
+    @RequestMapping(value = "/addToCartPannel", method = RequestMethod.GET)
+    public ModelAndView goToCart() {
+
+        ModelAndView modelAndView = new ModelAndView("Cart");
         return modelAndView;
 
-}
+    }
 
-@RequestMapping(value =  "/home",method = RequestMethod.GET)
-public ModelAndView getHome(){
+    @RequestMapping(value = "/home", method = RequestMethod.GET)
+    public ModelAndView getHome() {
 
-    ModelAndView modelAndView=new ModelAndView("Home");
-    return modelAndView;
-}
+        ModelAndView modelAndView = new ModelAndView("Home");
+        return modelAndView;
+    }
+
     @RequestMapping(value = "/addToCart", method = RequestMethod.GET)
     public ModelAndView addToCart(@RequestParam("productId") Long productId, HttpSession session) {
 
@@ -169,42 +175,73 @@ public ModelAndView getHome(){
         return modelAndView;
     }
 
-    @RequestMapping(value = "/deleteCart",method = RequestMethod.GET)
-    public ModelAndView getAfterDelete(@RequestParam("id") Long Id){
+    @RequestMapping(value = "/deleteCart", method = RequestMethod.GET)
+    public ModelAndView getAfterDelete(@RequestParam("id") Long Id) {
         cartService.deleteCart(Id);
-        List<CartModel>list=cartService.listOfcart();
+        List<CartModel> list = cartService.listOfcart();
         // Return the cart view
         ModelAndView modelAndView = new ModelAndView("Cart");
-        modelAndView.addObject("cart",list);
+        modelAndView.addObject("cart", list);
         return modelAndView;
     }
+
     @RequestMapping(value = "/increaseQuantity", method = RequestMethod.POST)
-    public ModelAndView increaseQuantity(@RequestParam("id") Long id) {
+    public @ResponseBody
+    Map<String, Object> increaseQuantity(@RequestParam("id") Long id) {
+        System.out.println("Increase quantity request for product id: " + id);
         CartModel cartItem = cartService.getCartById(id);
+        Map<String, Object> response = new HashMap<>();
         if (cartItem != null) {
             ProductModel product = productService.getProductByName(cartItem.getName());
             if (cartItem.getQuantity() < product.getQuantity()) {
                 cartItem.setQuantity(cartItem.getQuantity() + 1);
-                cartService.saveCart(cartItem);
+                cartService.updateCart(cartItem); // Save the updated cart item
+                response.put("newQuantity", cartItem.getQuantity());
+                System.out.println("New quantity: " + cartItem.getQuantity());
+            } else {
+                response.put("error", "Maximum quantity reached");
             }
+        } else {
+            response.put("error", "Cart item not found");
         }
-        List<CartModel> cartList = cartService.listOfcart();
-        ModelAndView modelAndView = new ModelAndView("Cart");
-        modelAndView.addObject("cart", cartList);
-        return modelAndView;
+
+        return response;
     }
 
     @RequestMapping(value = "/decreaseQuantity", method = RequestMethod.POST)
-    public ModelAndView decreaseQuantity(@RequestParam("id") Long id) {
+    public @ResponseBody
+    Map<String, Object> decreaseQuantity(@RequestParam("id") Long id) {
+        System.out.println("Decrease quantity request for product id: " + id);
         CartModel cartItem = cartService.getCartById(id);
-        if (cartItem != null && cartItem.getQuantity() > 1) {
-            cartItem.setQuantity(cartItem.getQuantity() - 1);
-            cartService.saveCart(cartItem);
+        Map<String, Object> response = new HashMap<>();
+        if (cartItem != null) {
+            if (cartItem.getQuantity() > 1) {
+                cartItem.setQuantity(cartItem.getQuantity() - 1);
+                cartService.updateCart(cartItem); // Save the updated cart item
+                response.put("newQuantity", cartItem.getQuantity());
+                System.out.println("New quantity: " + cartItem.getQuantity());
+            } else {
+                response.put("error", "Minimum quantity reached");
+            }
+        } else {
+            response.put("error", "Cart item not found");
         }
-        List<CartModel> cartList = cartService.listOfcart();
-        ModelAndView modelAndView = new ModelAndView("Cart");
-        modelAndView.addObject("cart", cartList);
-        return modelAndView;
+        return response;
     }
-}
 
+    @RequestMapping(value = "/paye",method = RequestMethod.GET)
+    public ModelAndView getPaye(){
+
+        List<CartModel> list = cartService.listOfcart();
+        ModelAndView modelAndView=new ModelAndView("Payement");
+        modelAndView.addObject("cart", list);
+
+
+        return modelAndView;
+
+    }
+
+
+
+
+}

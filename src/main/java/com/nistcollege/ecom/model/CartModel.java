@@ -19,4 +19,5 @@ public class CartModel {
     private String brand;
     private int quantity=1;
 
+
 }

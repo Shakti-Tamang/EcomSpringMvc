@@ -163,7 +163,7 @@
             </li>
             <li><a href="userProduct" style="text-transform: uppercase;text-decoration: none; font-weight: bold;"><i class="fa fa-product-hunt"></i> Products</a></li>
             <li><a href="addToCartPannel" style="text-transform: uppercase;text-decoration: none; font-weight: bold;"><i class="fa fa-shopping-cart"></i>Cart</a></li>
-            <li><a href="#" style="text-transform: uppercase;text-decoration: none; font-weight: bold;"><i class="fa fa-credit-card"></i> Payement</a></li>
+            <li><a href="paye" style="text-transform: uppercase;text-decoration: none; font-weight: bold;"><i class="fa fa-credit-card"></i> Payement</a></li>
             <li><a href="#" style="text-transform: uppercase;text-decoration: none; font-weight: bold;"><i class="fa fa-bar-chart"></i> Reports</a></li>
             <li><a href="#" style="text-transform: uppercase;text-decoration: none; font-weight: bold;"><i class="fa fa-cogs"></i> Settings</a></li>
         </ul>

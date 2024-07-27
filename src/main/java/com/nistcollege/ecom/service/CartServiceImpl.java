@@ -43,4 +43,14 @@ public class CartServiceImpl implements CartService {
         CartModel cartModel=session.get(CartModel.class,Id);
         return cartModel;
     }
+
+    @Override
+    public void updateCart(CartModel cartModel) {
+        Session session=sessionFactory.getCurrentSession();
+        CartModel model1=session.get(CartModel.class,cartModel.getId());
+
+        if(model1!=null){
+model1.setQuantity(cartModel.getQuantity());
+        }
+    }
 }

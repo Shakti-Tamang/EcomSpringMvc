@@ -47,22 +47,19 @@
             display: flex;
             justify-content: space-between;
             padding: 10px;
-            background-color: #f8f9fa; /* Optional: Add background color for footer */
+            background-color: #f8f9fa;
         }
-
-
     </style>
     <jsp:include page="customerDashBoard.jsp"/>
 </head>
 <body>
 <div class="container">
-    <h1 style="color: #808080;margin-left: 23px;margin-top: 22px">
-        <i class="fa fa-shopping-cart"></i>Your-Cart
+    <h1 style="color: #808080; margin-left: 23px; margin-top: 22px;">
+        <i class="fa fa-shopping-cart"></i>Your Cart
     </h1><br><br>
 
-    <!-- New Product Card Section -->
     <div class="table-responsive">
-        <table class="table table-hover table-responsive-md">
+        <table class="table table-hover table-responsive-md" style="background: #e0f7fa;">
             <thead class="tbl-header">
             <tr>
                 <th>Serial No.</th>
@@ -82,11 +79,13 @@
                     <td><c:out value="${product.category}"/></td>
                     <td><c:out value="${product.brand}"/></td>
                     <td>
-                        <button class="btn btn-danger" style="background:red;" onclick="updateQuantity('${product.id}', 'increase')">+</button>
-                        <span>${product.quantity}</span>
-                        <button class="btn btn-danger" style="background:red;" onclick="updateQuantity('${product.id}', 'decrease')">-</button>
+                        <button class="btn btn-secondary" style="background-color:red; color: white;" onclick="updateQuantity(${product.id}, 'decrease')">-</button>
+                        <span id="quantity-${product.id}">
+                            <c:out value="${product.quantity}"/>
+                        </span>
+                        <button class="btn btn-secondary"  style="background-color:red; color: white;" onclick="updateQuantity(${product.id}, 'increase')">+</button>
                     </td>
-                    <td><c:out value="Rs.${product.price}"/></td>
+                    <td>Rs.<c:out value="${product.price}"/></td>
                     <td>
                         <a class="btn btn-danger" style="background:red;" href="<c:url value='/deleteCart?id=${product.id}'/>" onclick="return confirmDelete()">Remove</a>
                     </td>
@@ -94,33 +93,38 @@
             </c:forEach>
             </tbody>
         </table>
-        <div class="footer" >
+        <div class="footer">
             <a class="btn" style="background-color: #3b5998; color: white;" href="userProduct">Continue shopping</a>
-            <a class="btn" style="background-color: #28a745; color: white;" href="<c:url value='/editProduct?productId=${product.productId}'/>" >Proceed To Checkout</a>
-
+            <a class="btn" style="background-color: #28a745; color: white;" href="paye">Proceed To Checkout for payement</a>
         </div>
-
-    <!-- Existing content -->
+    </div>
 </div>
-    <script>
-        function  confirmDelete() {
-            return confirm("Are you sure you want to delete this product?");
-        }
 
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    function confirmDelete() {
+        return confirm("Are you sure you want to delete this product?");
+    }
+    function updateQuantity(productId, action) {
+        var url = action === 'increase' ? '<c:url value="/increaseQuantity"/>' : '<c:url value="/decreaseQuantity"/>';
 
-        function updateQuantity(productId, action) {
-            $.ajax({
-                url: action === 'increase' ? '<c:url value="/increaseQuantity"/>' : '<c:url value="/decreaseQuantity"/>',
-                type: 'POST',
-                data: { id: productId },
-                success: function (response) {
-                    $('#productList').html($(response).find('#productList').html());
-                },
-                error: function () {
-                    alert('Error updating quantity');
+        $.ajax({
+            url: url,
+            type: 'POST',
+            data: { id: productId },
+            success: function(response) {
+                if (response.newQuantity !== undefined) {
+                    $('#quantity-' + productId).text(response.newQuantity);
+                } else {
+                    alert(response.error);
                 }
-            });
-        }
-    </script>
+            },
+            error: function(xhr, status, error) {
+                alert("An error occurred: " + xhr.responseText);
+            }
+        });
+    }
+
+</script>
 </body>
 </html>

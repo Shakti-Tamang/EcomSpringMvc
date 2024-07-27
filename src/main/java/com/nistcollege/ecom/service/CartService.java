@@ -9,6 +9,7 @@ public interface CartService {
     public List<CartModel>listOfcart();
     public void deleteCart(Long Id);
     public CartModel getCartById(Long Id);
+    public void updateCart(CartModel cartModel);
 
 
 }

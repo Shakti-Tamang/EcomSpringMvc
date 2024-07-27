@@ -44,7 +44,7 @@ if(productModel!=null){
         return productModel;
     }
 
-    @Transactional
+
     @Override
     public ProductModel getProductByName(String name) {
         Session session = sessionFactory.getCurrentSession();
