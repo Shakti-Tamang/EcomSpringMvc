@@ -89,6 +89,7 @@ public class CustomerController {
         return modelAndView;
     }
 
+//    for admin
     @RequestMapping(value = "/LoggedInuser", method = RequestMethod.POST)
     public ModelAndView logInUser(@ModelAttribute Usermodel1 usermodel1) {
         ModelAndView modelAndView = new ModelAndView(); // Initialize ModelAndView
@@ -128,6 +129,7 @@ public class CustomerController {
         return modelAndView;
     }
 
+//    for role user
     @RequestMapping(value = "/LoggedInuserCustomer", method = RequestMethod.POST)
     public ModelAndView logInUserCustomer(@ModelAttribute Usermodel1 usermodel1) {
         ModelAndView modelAndView = new ModelAndView(); // Initialize ModelAndView
@@ -153,7 +155,7 @@ public class CustomerController {
                     modelAndView.addObject("message", "User does not exist");
                 } else {
                     modelAndView.addObject("user", user);
-                    modelAndView.setViewName("customerDashBoard"); // Redirect to Admin view
+                    modelAndView.setViewName("Welcome"); // Redirect to user view
                 }
             } else {
                 modelAndView.setViewName("Home");
