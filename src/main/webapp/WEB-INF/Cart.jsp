@@ -81,7 +81,7 @@
                     <td>
                         <button class="btn btn-secondary" style="background-color:red; color: white;" onclick="updateQuantity(${product.id}, 'decrease')">-</button>
                         <span id="quantity-${product.id}">
-                            <c:out value="${product.quantity}"/>
+                            <c:out value="${product.quantity != null ? product.quantity : 1}"/>
                         </span>
                         <button class="btn btn-secondary"  style="background-color:red; color: white;" onclick="updateQuantity(${product.id}, 'increase')">+</button>
                     </td>

@@ -137,7 +137,11 @@ public class ProductController {
     @RequestMapping(value = "/addToCartPannel", method = RequestMethod.GET)
     public ModelAndView goToCart() {
 
+        List<CartModel> cartList = cartService.listOfcart();
+
+        // Return the cart view
         ModelAndView modelAndView = new ModelAndView("Cart");
+        modelAndView.addObject("cart", cartList);
         return modelAndView;
 
     }
@@ -161,7 +165,7 @@ public class ProductController {
         cartModel.setCategory(productModel.getCategory());
         cartModel.setName(productModel.getName());
         cartModel.setPrice(productModel.getPrice());
-        cartModel.setQuantity(productModel.getQuantity());
+        cartModel.setQuantity(1); // Set initial quantity to 1
 
         // Save the cart model
         cartService.saveCart(cartModel);

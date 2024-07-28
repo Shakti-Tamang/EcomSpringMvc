@@ -27,6 +27,48 @@
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
 
+
+        .search-container {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .search-input {
+            width: 300px;
+            padding: 10px 20px;
+            border: 2px solid #ddd;
+            border-radius: 25px;
+            box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.1);
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .search-input:focus {
+            border-color: #28a745;
+            box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .search-button {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin-left: -50px;
+            border-radius: 0 25px 25px 0;
+            cursor: pointer;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3), inset 0 1px 3px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .search-button:hover {
+            background-color: #218838;
+        }
+
+        .search-button i {
+            margin-right: 5px;
+        }
+
         .row {
             display: flex;
             flex-wrap: wrap;
@@ -113,8 +155,14 @@
 <div class="container">
     <h2 style="color: #808080;">
         <i class="fas fa-list-alt"></i> Product List
-    </h2><br><br>
-
+    </h2><br>
+    <!-- Search Bar -->
+    <div class="search-container">
+        <input type="text" placeholder="Search by Category....." name="search" id="search" class="search-input">
+        <button class="search-button" onclick="searchProducts()">
+            <i class="fas fa-search"></i> Search
+        </button>
+    </div><br>
 
     <div class="row">
         <c:forEach var="product" items="${productList}">
@@ -135,5 +183,7 @@
     </div>
     <!-- Existing content -->
 </div>
+
 </body>
 </html>
+
