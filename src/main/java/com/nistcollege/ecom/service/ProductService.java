@@ -11,4 +11,5 @@ public interface ProductService {
     public ProductModel getProductById(Long Id);
     public ProductModel getProductByName(String name);
     public void editProduct(ProductModel productModel);
+    public List<ProductModel>searchByCategory(String product);
 }

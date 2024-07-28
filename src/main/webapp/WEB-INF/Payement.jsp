@@ -68,7 +68,7 @@
         <c:forEach var="product" items="${cart}">
             <div class="item">
                 <div class="item-details">
-                    <span class="item-name">Product: <c:out value="${product.name}"/></span>
+                    <span class="item-name">Product-Name: <c:out value="${product.name}"/></span>
                     <span>Category: <c:out value="${product.category}"/></span>
                 </div>
                 <div class="item-details">

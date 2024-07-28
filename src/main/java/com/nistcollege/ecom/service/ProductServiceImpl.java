@@ -3,6 +3,7 @@ package com.nistcollege.ecom.service;
 import com.nistcollege.ecom.model.ProductModel;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.hibernate.query.Query; // This is the correct import for Hibernate Query
 
@@ -69,5 +70,12 @@ if(productModel!=null){
         productModel1.setQuantity(productModel.getQuantity());
         session.save(productModel1);
     }
+    }
+
+    @Override
+    public List<ProductModel> searchByCategory(String ProductCategory) {
+        Session session=sessionFactory.getCurrentSession();
+        List<ProductModel> List = session.createCriteria(ProductModel.class).add(Restrictions.like("category", "%" +  ProductCategory + "%")).list();
+        return List;
     }
 }
