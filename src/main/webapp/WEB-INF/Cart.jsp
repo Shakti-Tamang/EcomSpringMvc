@@ -79,23 +79,23 @@
                     <td><c:out value="${product.category}"/></td>
                     <td><c:out value="${product.brand}"/></td>
                     <td>
-                        <button class="btn btn-secondary" style="background-color:red; color: white;" onclick="updateQuantity(${product.id}, 'decrease')">-</button>
+                        <button class="btn btn-secondary" style="background-color:darkblue; color: white;" onclick="updateQuantity(${product.id}, 'decrease')">-</button>
                         <span id="quantity-${product.id}">
                             <c:out value="${product.quantity != null ? product.quantity : 1}"/>
                         </span>
-                        <button class="btn btn-secondary"  style="background-color:red; color: white;" onclick="updateQuantity(${product.id}, 'increase')">+</button>
+                        <button class="btn btn-secondary"  style="background-color:darkblue; color: white;" onclick="updateQuantity(${product.id}, 'increase')">+</button>
                     </td>
                     <td>Rs.<c:out value="${product.price}"/></td>
                     <td>
-                        <a class="btn btn-danger" style="background:red;" href="<c:url value='/deleteCart?id=${product.id}'/>" onclick="return confirmDelete()">Remove</a>
+                        <a class="btn btn-danger" style="background:darkblue;" href="<c:url value='/deleteCart?id=${product.id}'/>" onclick="return confirmDelete()">Remove</a>
                     </td>
                 </tr>
             </c:forEach>
             </tbody>
         </table>
         <div class="footer">
-            <a class="btn" style="background-color: #3b5998; color: white;" href="userProduct">Continue shopping</a>
-            <a class="btn" style="background-color: #28a745; color: white;" href="paye">Proceed To Checkout for payement</a>
+            <a class="btn" style="background-color: green; color: white;" href="userProduct">Continue shopping</a>
+            <a class="btn" style="background-color: green; color: white;" href="paye">Proceed To Checkout for payement</a>
         </div>
     </div>
 </div>

@@ -54,6 +54,22 @@
             display: flex;
             justify-content: space-between;
         }
+        .btn-pay {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            text-align: center;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+        .btn-pay:hover {
+            background-color: #0056b3;
+            color: #fff;
+        }
     </style>
     <jsp:include page="customerDashBoard.jsp"/>
 </head>
@@ -84,6 +100,7 @@
     </div>
     <div class="footer">
         <span class="total">Grand Total: Rs. <span id="grandTotal"></span></span>
+        <a href="getPay" class="btn-pay" style="background-color:green">Pay from Here</a>
     </div>
 </div>
 

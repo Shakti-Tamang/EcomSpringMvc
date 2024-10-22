@@ -30,7 +30,7 @@ public class CustomerController {
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public ModelAndView get() {
-        ModelAndView modelAndView = new ModelAndView("Home");
+        ModelAndView modelAndView = new ModelAndView("AdminGet");
         return modelAndView;
     }
 
@@ -112,7 +112,7 @@ public class CustomerController {
                 String user = userService.loginByEmail(usermodel1);
                 if (user == null) {
                     modelAndView.setViewName("LogIn");
-                    modelAndView.addObject("message", "User does not exist");
+                    modelAndView.addObject("message", "User does not exist"); 
                 } else {
                     modelAndView.addObject("user", user);
                     modelAndView.setViewName("AdminGet"); // Redirect to Admin view
@@ -129,6 +129,7 @@ public class CustomerController {
         return modelAndView;
     }
 
+    
 //    for role user
     @RequestMapping(value = "/LoggedInuserCustomer", method = RequestMethod.POST)
     public ModelAndView logInUserCustomer(@ModelAttribute Usermodel1 usermodel1) {
