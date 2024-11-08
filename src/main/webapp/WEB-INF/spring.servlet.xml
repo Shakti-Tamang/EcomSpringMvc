@@ -28,6 +28,20 @@
         <property name="maxUploadSize" value="104857600"/> <!-- 100 MB -->
     </bean>
 
+    <!-- Khalti API Configuration -->
+    <bean id="khaltiConfig" class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+        <property name="properties">
+            <props>
+                <prop key="khalti.api.url">https://khalti.com/api/v2/payment</prop>
+                <prop key="khalti.public.Key">test_secret_key_7ad63d2b66184576a5682e769eb0b138</prop>
+            </props>
+        </property>
+    </bean>
+
+    <context:component-scan base-package="com.nistcollege.ecom.service"/>
+
+
+
     <!-- Data Source Configuration -->
     <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <property name="driverClassName" value="org.postgresql.Driver"/>

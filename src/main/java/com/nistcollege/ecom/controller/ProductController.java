@@ -55,6 +55,8 @@ public class ProductController {
 
     private static final String UPLOAD_DIRECTORY = "C:\\Users\\Shakti\\IdeaProjects\\Ecommerse\\src\\main\\webapp\\image";
 
+
+//    it is made bacause it works first
     static {
         File directory = new File(UPLOAD_DIRECTORY);
         if (!directory.exists()) {
@@ -69,11 +71,15 @@ public class ProductController {
 //    so teasilae uta value talamathi cha
     public @ResponseBody
     Map<String, Object> addProduct(HttpServletRequest request, @ModelAttribute ProductModel product) {
+
+//        in hashing it dont store value in ascendong uniuw key for all values
         Map<String, Object> response = new HashMap<>();
         MultipartFile file = product.getImageFile();
 
         if (file.isEmpty()) {
             response.put("status", "error");
+
+//            String is key and object strores values
             response.put("message", "Please select a file to upload");
             return response;
         }
