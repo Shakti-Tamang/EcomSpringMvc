@@ -60,13 +60,14 @@
     </form>
 </div>
 
-<script src="https://khalti.com/static/khalti-checkout.js"></script>
+<%--<script src="https://khalti.com/static/khalti-checkout.js"></script>--%>
+<script src="https://khalti.s3.ap-south-1.amazonaws.com/KPG/dist/2020.12.17.0.0.0/khalti-checkout.iffe.js"></script>
 <script>
     var config = {
-        "publicKey": "YOUR_KHALTI_PUBLIC_KEY", // Replace with your Khalti public key
+        "publicKey": "test_public_key_ab4ce8ec82bf4663a471363d88b43d82", // Replace with your Khalti public key
         "productIdentity": "1234567890",
         "productName": "Product List",
-        "productUrl": "http://localhost:8080/products",
+        "productUrl": "http://localhost:8079/Ecommerse/userProduct",
         "eventHandler": {
             onSuccess (payload) {
                 // Get the payment token from the payload
@@ -106,7 +107,7 @@
     var checkout = new KhaltiCheckout(config);
     document.getElementById('payButton').onclick = function (e) {
         e.preventDefault();
-        checkout.show({amount: document.getElementById('amount').value * 100}); // Convert to paisa
+        checkout.show({amount: document.getElementById('amount').value }); // Convert to paisa
     };
 </script>
 

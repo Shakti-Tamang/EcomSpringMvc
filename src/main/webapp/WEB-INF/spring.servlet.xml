@@ -33,7 +33,7 @@
         <property name="properties">
             <props>
                 <prop key="khalti.api.url">https://khalti.com/api/v2/payment</prop>
-                <prop key="khalti.secret.key">test_secret_key_7ad63d2b66184576a5682e769eb0b138</prop>
+                <prop key="khalti.public.Key">test_secret_key_7ad63d2b66184576a5682e769eb0b138</prop>
             </props>
         </property>
     </bean>

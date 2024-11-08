@@ -15,5 +15,7 @@ public class Payement {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int payement_id;
 
+    private double amount;
+    private String token;
 
 }

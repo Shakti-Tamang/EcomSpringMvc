@@ -30,7 +30,7 @@ public class CustomerController {
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public ModelAndView get() {
-        ModelAndView modelAndView = new ModelAndView("AdminGet");
+        ModelAndView modelAndView = new ModelAndView("Welcome");
         return modelAndView;
     }
 
